@@ -18,137 +18,156 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="User")
-public class User implements Serializable{
+@Table(name = "User")
+public class User implements Serializable {
 
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	@NotEmpty
-	@Column(name="SSO_ID", unique=true, nullable=false)
-	private String ssoId;
-	
-	@NotEmpty
-	@Column(name="PASSWORD", nullable=false)
-	private String password;
-		
-	@NotEmpty
-	@Column(name="FIRST_NAME", nullable=false)
-	private String firstName;
+    @NotEmpty
+    @Column(name = "SSO_ID", unique = true, nullable = false)
+    private String ssoId;
 
-	@NotEmpty
-	@Column(name="LAST_NAME", nullable=false)
-	private String lastName;
+    @NotEmpty
+    @Column(name = "PASSWORD", nullable = false)
+    private String password;
 
-	@NotEmpty
-	@Column(name="EMAIL", nullable=false)
-	private String email;
+    @NotEmpty
+    @Column(name = "FIRST_NAME", nullable = false)
+    private String firstName;
 
-	@NotEmpty
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "UserUserProfile", 
-             joinColumns = { @JoinColumn(name = "USER_ID") }, 
-             inverseJoinColumns = { @JoinColumn(name = "USER_PROFILE_ID") })
-	private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
+    @NotEmpty
+    @Column(name = "LAST_NAME", nullable = false)
+    private String lastName;
 
-	public Integer getId() {
-		return id;
-	}
+    @NotEmpty
+    @Column(name = "EMAIL", nullable = false)
+    private String email;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    @Column(name = "IDEMPRESA")
+    private Integer idEmpresa;
 
-	public String getSsoId() {
-		return ssoId;
-	}
+    @NotEmpty
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "UserUserProfile",
+            joinColumns = {
+                @JoinColumn(name = "USER_ID")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "USER_PROFILE_ID")})
+    private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
 
-	public void setSsoId(String ssoId) {
-		this.ssoId = ssoId;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getSsoId() {
+        return ssoId;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public void setSsoId(String ssoId) {
+        this.ssoId = ssoId;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public Set<UserProfile> getUserProfiles() {
-		return userProfiles;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setUserProfiles(Set<UserProfile> userProfiles) {
-		this.userProfiles = userProfiles;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((ssoId == null) ? 0 : ssoId.hashCode());
-		return result;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof User))
-			return false;
-		User other = (User) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (ssoId == null) {
-			if (other.ssoId != null)
-				return false;
-		} else if (!ssoId.equals(other.ssoId))
-			return false;
-		return true;
-	}
+    public Integer getIdEmpresa() {
+        return idEmpresa;
+    }
 
-	/*
+    public void setIdEmpresa(Integer idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+
+    public Set<UserProfile> getUserProfiles() {
+        return userProfiles;
+    }
+
+    public void setUserProfiles(Set<UserProfile> userProfiles) {
+        this.userProfiles = userProfiles;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((ssoId == null) ? 0 : ssoId.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof User)) {
+            return false;
+        }
+        User other = (User) obj;
+        if (id == null) {
+            if (other.id != null) {
+                return false;
+            }
+        } else if (!id.equals(other.id)) {
+            return false;
+        }
+        if (ssoId == null) {
+            if (other.ssoId != null) {
+                return false;
+            }
+        } else if (!ssoId.equals(other.ssoId)) {
+            return false;
+        }
+        return true;
+    }
+
+    /*
 	 * DO-NOT-INCLUDE passwords in toString function.
 	 * It is done here just for convenience purpose.
-	 */
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", ssoId=" + ssoId + ", password=" + password
-				+ ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", email=" + email + "]";
-	}
+     */
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", ssoId=" + ssoId + ", password=" + password
+                + ", firstName=" + firstName + ", lastName=" + lastName
+                + ", email=" + email + "]";
+    }
 
-
-	
 }
