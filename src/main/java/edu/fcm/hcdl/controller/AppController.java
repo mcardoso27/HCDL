@@ -1,5 +1,6 @@
 package edu.fcm.hcdl.controller;
 
+import edu.fcm.hcdl.model.Provincias;
 import java.util.List;
 import java.util.Locale;
 
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import edu.fcm.hcdl.model.User;
 import edu.fcm.hcdl.model.UserProfile;
+import edu.fcm.hcdl.service.ProvinciaService;
 import edu.fcm.hcdl.service.UserProfileService;
 import edu.fcm.hcdl.service.UserService;
 
@@ -49,11 +51,26 @@ public class AppController {
     @Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
 
+    //AGREGADO POR MI*****************************
+    @Autowired
+    ProvinciaService provinciaService;
+    
+    @RequestMapping(value = "/provinciasList", method = RequestMethod.GET)
+        public String provinciasList(ModelMap model) {
+        System.out.println("ENTRO A provincias LIST");
+        List<Provincias> pl = provinciaService.findAllProvincias();
+        model.addAttribute("lst", pl);
+        return "provinciaList";
+    }
+    
+    
+    //************************************
+    
     /**
      * This method will list all existing users.
      */
     @RequestMapping(value = {"/","/usersList"}, method = RequestMethod.GET)
-    public String listUsers(ModelMap model) {
+        public String listUsers(ModelMap model) {
         System.out.println("ENTRO A USERLIST");
         List<User> users = userService.findAllUsers();
         model.addAttribute("users", users);

@@ -7,6 +7,16 @@
     <class>edu.fcm.hcdl.model.TiposEmpresas</class>
     <class>edu.fcm.hcdl.model.Provincias</class>
     <class>edu.fcm.hcdl.model.Localidades</class>
+    <class>edu.fcm.hcdl.model.EstadosSaludEnfermedad</class>
+    <class>edu.fcm.hcdl.model.Enfermedades</class>
+    <class>edu.fcm.hcdl.model.Incidentes</class>
+    <class>edu.fcm.hcdl.model.Accidentes</class>
+    <class>edu.fcm.hcdl.model.AccionesPreventivas</class>
+    <class>edu.fcm.hcdl.model.Empleos</class>
+    <class>edu.fcm.hcdl.model.Personas</class>
+    <class>edu.fcm.hcdl.model.PuestosTrabajos</class>
+    <class>edu.fcm.hcdl.model.SectoresTrabajos</class>
+    <class>edu.fcm.hcdl.model.Siniestros</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/medicina?zeroDateTimeBehavior=convertToNull"/>
