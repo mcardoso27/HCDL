@@ -345,7 +345,6 @@ CREATE TABLE `PersistentsLogins` (
 
 LOCK TABLES `PersistentsLogins` WRITE;
 /*!40000 ALTER TABLE `PersistentsLogins` DISABLE KEYS */;
-INSERT INTO `PersistentsLogins` VALUES ('mcardoso','WSjlJvBGwrg4oxVfWL06/A==','uPSvuMJnW4VWcxwSVJW7vg==','2017-07-06 23:00:57');
 /*!40000 ALTER TABLE `PersistentsLogins` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -606,8 +605,11 @@ CREATE TABLE `User` (
   `first_name` varchar(30) NOT NULL,
   `last_name` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
+  `idEmpresa` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `sso_id` (`sso_id`)
+  UNIQUE KEY `sso_id` (`sso_id`),
+  KEY `fk_User_Empresas1_idx` (`idEmpresa`),
+  CONSTRAINT `fk_User_Empresas1` FOREIGN KEY (`idEmpresa`) REFERENCES `Empresas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -617,7 +619,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (1,'sam','$2a$10$4eqIF5s/ewJwHK1p8lqlFOEm2QIA0S8g6./Lok.pQxqcxaBZYChRm','Sam','Smith','samy@xyz.com'),(2,'mcardoso','$2a$10$vi4QwYbPMF.zSh8OnEAcr.l0ofFYrJrTnGj2xvqeilCwM5Sxb4Mxm','martin','cardoso','mcardoso821@gmail.com');
+INSERT INTO `User` VALUES (1,'sam','$2a$10$4eqIF5s/ewJwHK1p8lqlFOEm2QIA0S8g6./Lok.pQxqcxaBZYChRm','Sam','Smith','samy@xyz.com',NULL),(2,'mcardoso','$2a$10$vi4QwYbPMF.zSh8OnEAcr.l0ofFYrJrTnGj2xvqeilCwM5Sxb4Mxm','martin','cardoso','mcardoso821@gmail.com',NULL);
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -669,37 +671,8 @@ CREATE TABLE `UserUserProfile` (
 
 LOCK TABLES `UserUserProfile` WRITE;
 /*!40000 ALTER TABLE `UserUserProfile` DISABLE KEYS */;
-INSERT INTO `UserUserProfile` VALUES (1,2),(2,3);
+INSERT INTO `UserUserProfile` VALUES (1,2),(2,2);
 /*!40000 ALTER TABLE `UserUserProfile` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Usuarios`
---
-
-DROP TABLE IF EXISTS `Usuarios`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Usuarios` (
-  `idUsuarios` int(11) NOT NULL AUTO_INCREMENT,
-  `nombreUsuario` varchar(30) NOT NULL,
-  `contraseniaUsuario` varchar(200) DEFAULT NULL,
-  `rol` enum('Empresa','Prestadora','Admin') DEFAULT NULL,
-  `idEmpresa` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idUsuarios`),
-  KEY `fk_empresa_idx` (`idEmpresa`),
-  CONSTRAINT `fk_empresa` FOREIGN KEY (`idEmpresa`) REFERENCES `Empresas` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Usuarios`
---
-
-LOCK TABLES `Usuarios` WRITE;
-/*!40000 ALTER TABLE `Usuarios` DISABLE KEYS */;
-INSERT INTO `Usuarios` VALUES (1,'martin','mcardoso','Admin',NULL),(2,'juan','perez','Empresa',2);
-/*!40000 ALTER TABLE `Usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -711,4 +684,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-06 20:39:18
+-- Dump completed on 2017-07-09 17:39:28
