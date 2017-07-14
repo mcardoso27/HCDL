@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `medicina` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `medicina`;
 -- MySQL dump 10.13  Distrib 5.5.55, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: medicina
@@ -684,4 +682,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-09 17:39:28
+-- Dump completed on 2017-07-13 22:09:06
