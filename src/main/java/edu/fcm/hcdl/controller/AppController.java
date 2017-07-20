@@ -69,13 +69,13 @@ public class AppController {
     /**
      * This method will list all existing users.
      */
-    @RequestMapping(value = {"/","/usersList"}, method = RequestMethod.GET)
+        @RequestMapping(value = {"/","/usersList"}, method = RequestMethod.GET)
         public String listUsers(ModelMap model) {
         System.out.println("ENTRO A USERLIST");
         List<User> users = userService.findAllUsers();
         model.addAttribute("users", users);
         model.addAttribute("loggedinuser", getPrincipal());
-        return "userslist";
+        return "adminHome";
     }
 
     /**
