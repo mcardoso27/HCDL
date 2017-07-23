@@ -7,105 +7,100 @@ package edu.fcm.hcdl.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author martin
  */
 @Entity
-@Table(name = "EstadosSaludEnfermedad")
+@Table(name = "EstadoSaludEnfermedad")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "EstadosSaludEnfermedad.findAll", query = "SELECT e FROM EstadosSaludEnfermedad e")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findById", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.id = :id")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByFechaRealizacion", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.fechaRealizacion = :fechaRealizacion")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByCantidadCigarrillos", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.cantidadCigarrillos = :cantidadCigarrillos")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByAlcohol", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.alcohol = :alcohol")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByMedicamentos", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.medicamentos = :medicamentos")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByTranquilizantes", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.tranquilizantes = :tranquilizantes")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByPeso", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.peso = :peso")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEstatura", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.estatura = :estatura")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintAlteracionesEnVision", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintAlteracionesEnVision = :sintAlteracionesEnVision")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintDecaimiento", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintDecaimiento = :sintDecaimiento")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintPesadezEnPiernas", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintPesadezEnPiernas = :sintPesadezEnPiernas")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintInsomnio", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintInsomnio = :sintInsomnio")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintDificultadParaConcentrarse", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintDificultadParaConcentrarse = :sintDificultadParaConcentrarse")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintInapetencia", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintInapetencia = :sintInapetencia")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintLlantofacil", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintLlantofacil = :sintLlantofacil")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintIrritabilidad", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintIrritabilidad = :sintIrritabilidad")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintPerdidaDememoria", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintPerdidaDememoria = :sintPerdidaDememoria")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintAngustia", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintAngustia = :sintAngustia")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintAcidez", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintAcidez = :sintAcidez")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintNauseas", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintNauseas = :sintNauseas")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintVomitos", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintVomitos = :sintVomitos")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintDiarreas", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintDiarreas = :sintDiarreas")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintConstipacion", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintConstipacion = :sintConstipacion")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintTrastornosRespiratorios", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintTrastornosRespiratorios = :sintTrastornosRespiratorios")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintPalpitaciones", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintPalpitaciones = :sintPalpitaciones")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintMareos", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintMareos = :sintMareos")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintAfonia", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintAfonia = :sintAfonia")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintAumentoDePeso", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintAumentoDePeso = :sintAumentoDePeso")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintDisminucionDePeso", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintDisminucionDePeso = :sintDisminucionDePeso")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintTosPermanente", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintTosPermanente = :sintTosPermanente")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintHormigueoManosPies", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintHormigueoManosPies = :sintHormigueoManosPies")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintDoloresArticulares", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintDoloresArticulares = :sintDoloresArticulares")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintDoloresEspalda", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintDoloresEspalda = :sintDoloresEspalda")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintDoloresCuello", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintDoloresCuello = :sintDoloresCuello")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintDoloresLumbares", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintDoloresLumbares = :sintDoloresLumbares")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintDolorMuscularGeneral", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintDolorMuscularGeneral = :sintDolorMuscularGeneral")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintConvulsiones", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintConvulsiones = :sintConvulsiones")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findBySintEpilepsia", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.sintEpilepsia = :sintEpilepsia")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdLuecemia", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edLuecemia = :edLuecemia")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdDisfonia", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edDisfonia = :edDisfonia")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdMiopia", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edMiopia = :edMiopia")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdAstigmatismo", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edAstigmatismo = :edAstigmatismo")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdAsma", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edAsma = :edAsma")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdFibromialgia", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edFibromialgia = :edFibromialgia")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdCistitis", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edCistitis = :edCistitis")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdTumores", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edTumores = :edTumores")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdAlergia", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edAlergia = :edAlergia")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdHipoacusia", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edHipoacusia = :edHipoacusia")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdDiabetes", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edDiabetes = :edDiabetes")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdVertigos", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edVertigos = :edVertigos")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdRinitis", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edRinitis = :edRinitis")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdBronquitis", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edBronquitis = :edBronquitis")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdHipertension", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edHipertension = :edHipertension")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdEnfCardiacasCoronarias", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edEnfCardiacasCoronarias = :edEnfCardiacasCoronarias")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdTendinitis", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edTendinitis = :edTendinitis")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdStress", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edStress = :edStress")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdLumbagia", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edLumbagia = :edLumbagia")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdUlceraEstomago", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edUlceraEstomago = :edUlceraEstomago")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdGastritis", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edGastritis = :edGastritis")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdReumatismo", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edReumatismo = :edReumatismo")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdNeurosis", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edNeurosis = :edNeurosis")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdDepresion", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edDepresion = :edDepresion")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByEdVaricocele", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.edVaricocele = :edVaricocele")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByExamenPreIngreso", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.examenPreIngreso = :examenPreIngreso")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByExamenesperiodicos", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.examenesperiodicos = :examenesperiodicos")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByExamPeriodicoMedico", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.examPeriodicoMedico = :examPeriodicoMedico")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByMedicoEmpresa", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.medicoEmpresa = :medicoEmpresa")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByExaminadoAusencia", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.examinadoAusencia = :examinadoAusencia")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByRecibioCapacitacion", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.recibioCapacitacion = :recibioCapacitacion")
-    , @NamedQuery(name = "EstadosSaludEnfermedad.findByIdAccidentes", query = "SELECT e FROM EstadosSaludEnfermedad e WHERE e.idAccidentes = :idAccidentes")})
-public class EstadosSaludEnfermedad implements Serializable {
+    @NamedQuery(name = "EstadoSaludEnfermedad.findAll", query = "SELECT e FROM EstadoSaludEnfermedad e")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findById", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.id = :id")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByIdPersona", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.idPersona = :idPersona")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByFechaRealizacion", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.fechaRealizacion = :fechaRealizacion")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByCantidadCigarrillos", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.cantidadCigarrillos = :cantidadCigarrillos")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByAlcohol", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.alcohol = :alcohol")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByMedicamentos", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.medicamentos = :medicamentos")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByTranquilizantes", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.tranquilizantes = :tranquilizantes")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByPeso", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.peso = :peso")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEstatura", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.estatura = :estatura")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintAlteracionesEnVision", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintAlteracionesEnVision = :sintAlteracionesEnVision")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintDecaimiento", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintDecaimiento = :sintDecaimiento")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintPesadezEnPiernas", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintPesadezEnPiernas = :sintPesadezEnPiernas")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintInsomnio", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintInsomnio = :sintInsomnio")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintDificultadParaConcentrarse", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintDificultadParaConcentrarse = :sintDificultadParaConcentrarse")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintInapetencia", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintInapetencia = :sintInapetencia")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintLlantofacil", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintLlantofacil = :sintLlantofacil")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintIrritabilidad", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintIrritabilidad = :sintIrritabilidad")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintPerdidaDememoria", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintPerdidaDememoria = :sintPerdidaDememoria")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintAngustia", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintAngustia = :sintAngustia")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintAcidez", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintAcidez = :sintAcidez")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintNauseas", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintNauseas = :sintNauseas")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintVomitos", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintVomitos = :sintVomitos")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintDiarreas", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintDiarreas = :sintDiarreas")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintConstipacion", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintConstipacion = :sintConstipacion")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintTrastornosRespiratorios", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintTrastornosRespiratorios = :sintTrastornosRespiratorios")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintPalpitaciones", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintPalpitaciones = :sintPalpitaciones")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintMareos", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintMareos = :sintMareos")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintAfonia", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintAfonia = :sintAfonia")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintAumentoDePeso", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintAumentoDePeso = :sintAumentoDePeso")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintDisminucionDePeso", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintDisminucionDePeso = :sintDisminucionDePeso")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintTosPermanente", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintTosPermanente = :sintTosPermanente")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintHormigueoManosPies", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintHormigueoManosPies = :sintHormigueoManosPies")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintDoloresArticulares", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintDoloresArticulares = :sintDoloresArticulares")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintDoloresEspalda", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintDoloresEspalda = :sintDoloresEspalda")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintDoloresCuello", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintDoloresCuello = :sintDoloresCuello")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintDoloresLumbares", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintDoloresLumbares = :sintDoloresLumbares")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintDolorMuscularGeneral", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintDolorMuscularGeneral = :sintDolorMuscularGeneral")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintConvulsiones", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintConvulsiones = :sintConvulsiones")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findBySintEpilepsia", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.sintEpilepsia = :sintEpilepsia")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdLuecemia", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edLuecemia = :edLuecemia")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdDisfonia", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edDisfonia = :edDisfonia")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdMiopia", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edMiopia = :edMiopia")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdAstigmatismo", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edAstigmatismo = :edAstigmatismo")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdAsma", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edAsma = :edAsma")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdFibromialgia", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edFibromialgia = :edFibromialgia")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdCistitis", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edCistitis = :edCistitis")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdTumores", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edTumores = :edTumores")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdAlergia", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edAlergia = :edAlergia")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdHipoacusia", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edHipoacusia = :edHipoacusia")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdDiabetes", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edDiabetes = :edDiabetes")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdVertigos", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edVertigos = :edVertigos")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdRinitis", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edRinitis = :edRinitis")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdBronquitis", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edBronquitis = :edBronquitis")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdHipertension", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edHipertension = :edHipertension")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdEnfCardiacasCoronarias", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edEnfCardiacasCoronarias = :edEnfCardiacasCoronarias")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdTendinitis", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edTendinitis = :edTendinitis")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdStress", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edStress = :edStress")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdLumbagia", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edLumbagia = :edLumbagia")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdUlceraEstomago", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edUlceraEstomago = :edUlceraEstomago")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdGastritis", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edGastritis = :edGastritis")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdReumatismo", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edReumatismo = :edReumatismo")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdNeurosis", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edNeurosis = :edNeurosis")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdDepresion", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edDepresion = :edDepresion")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByEdVaricocele", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.edVaricocele = :edVaricocele")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByExamenPreIngreso", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.examenPreIngreso = :examenPreIngreso")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByExamenesperiodicos", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.examenesperiodicos = :examenesperiodicos")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByExamPeriodicoMedico", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.examPeriodicoMedico = :examPeriodicoMedico")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByMedicoEmpresa", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.medicoEmpresa = :medicoEmpresa")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByExaminadoAusencia", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.examinadoAusencia = :examinadoAusencia")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByRecibioCapacitacion", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.recibioCapacitacion = :recibioCapacitacion")
+    , @NamedQuery(name = "EstadoSaludEnfermedad.findByIdAccidentes", query = "SELECT e FROM EstadoSaludEnfermedad e WHERE e.idAccidentes = :idAccidentes")})
+public class EstadoSaludEnfermedad implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -113,6 +108,10 @@ public class EstadosSaludEnfermedad implements Serializable {
     @NotNull
     @Column(name = "id")
     private Integer id;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_persona")
+    private int idPersona;
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha_realizacion")
@@ -392,27 +391,17 @@ public class EstadosSaludEnfermedad implements Serializable {
     private boolean recibioCapacitacion;
     @Column(name = "id_accidentes")
     private Integer idAccidentes;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkestadosSaludEnfermedad")
-    private List<Incidentes> incidentesList;
-    @JoinColumn(name = "id_persona", referencedColumnName = "id")
-    @OneToOne(optional = false)
-    private Personas idPersona;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idestadoSaludEnfermedad")
-    private List<Enfermedades> enfermedadesList;
-    @OneToMany(mappedBy = "idestadoSaludEnfermedad")
-    private List<Siniestros> siniestrosList;
-    @OneToMany(mappedBy = "idestadoSaludEnfermedad")
-    private List<Accidentes> accidentesList;
 
-    public EstadosSaludEnfermedad() {
+    public EstadoSaludEnfermedad() {
     }
 
-    public EstadosSaludEnfermedad(Integer id) {
+    public EstadoSaludEnfermedad(Integer id) {
         this.id = id;
     }
 
-    public EstadosSaludEnfermedad(Integer id, Date fechaRealizacion, int cantidadCigarrillos, boolean alcohol, String medicamentos, boolean tranquilizantes, float peso, float estatura, boolean sintAlteracionesEnVision, boolean sintDecaimiento, boolean sintPesadezEnPiernas, boolean sintInsomnio, boolean sintDificultadParaConcentrarse, boolean sintInapetencia, boolean sintLlantofacil, boolean sintIrritabilidad, boolean sintPerdidaDememoria, boolean sintAngustia, boolean sintAcidez, boolean sintNauseas, boolean sintVomitos, boolean sintDiarreas, boolean sintConstipacion, boolean sintTrastornosRespiratorios, boolean sintPalpitaciones, boolean sintMareos, boolean sintAfonia, boolean sintAumentoDePeso, boolean sintDisminucionDePeso, boolean sintTosPermanente, boolean sintHormigueoManosPies, boolean sintDoloresArticulares, boolean sintDoloresEspalda, boolean sintDoloresCuello, boolean sintDoloresLumbares, boolean sintDolorMuscularGeneral, boolean sintConvulsiones, boolean sintEpilepsia, boolean edLuecemia, boolean edDisfonia, boolean edMiopia, boolean edAstigmatismo, boolean edAsma, boolean edFibromialgia, boolean edCistitis, boolean edTumores, boolean edAlergia, boolean edHipoacusia, boolean edDiabetes, boolean edVertigos, boolean edRinitis, boolean edBronquitis, boolean edHipertension, boolean edEnfCardiacasCoronarias, boolean edTendinitis, boolean edStress, boolean edLumbagia, boolean edUlceraEstomago, boolean edGastritis, boolean edReumatismo, boolean edNeurosis, boolean edDepresion, boolean edVaricocele, String examenPreIngreso, String examenesperiodicos, String examPeriodicoMedico, boolean medicoEmpresa, boolean examinadoAusencia, boolean recibioCapacitacion) {
+    public EstadoSaludEnfermedad(Integer id, int idPersona, Date fechaRealizacion, int cantidadCigarrillos, boolean alcohol, String medicamentos, boolean tranquilizantes, float peso, float estatura, boolean sintAlteracionesEnVision, boolean sintDecaimiento, boolean sintPesadezEnPiernas, boolean sintInsomnio, boolean sintDificultadParaConcentrarse, boolean sintInapetencia, boolean sintLlantofacil, boolean sintIrritabilidad, boolean sintPerdidaDememoria, boolean sintAngustia, boolean sintAcidez, boolean sintNauseas, boolean sintVomitos, boolean sintDiarreas, boolean sintConstipacion, boolean sintTrastornosRespiratorios, boolean sintPalpitaciones, boolean sintMareos, boolean sintAfonia, boolean sintAumentoDePeso, boolean sintDisminucionDePeso, boolean sintTosPermanente, boolean sintHormigueoManosPies, boolean sintDoloresArticulares, boolean sintDoloresEspalda, boolean sintDoloresCuello, boolean sintDoloresLumbares, boolean sintDolorMuscularGeneral, boolean sintConvulsiones, boolean sintEpilepsia, boolean edLuecemia, boolean edDisfonia, boolean edMiopia, boolean edAstigmatismo, boolean edAsma, boolean edFibromialgia, boolean edCistitis, boolean edTumores, boolean edAlergia, boolean edHipoacusia, boolean edDiabetes, boolean edVertigos, boolean edRinitis, boolean edBronquitis, boolean edHipertension, boolean edEnfCardiacasCoronarias, boolean edTendinitis, boolean edStress, boolean edLumbagia, boolean edUlceraEstomago, boolean edGastritis, boolean edReumatismo, boolean edNeurosis, boolean edDepresion, boolean edVaricocele, String examenPreIngreso, String examenesperiodicos, String examPeriodicoMedico, boolean medicoEmpresa, boolean examinadoAusencia, boolean recibioCapacitacion) {
         this.id = id;
+        this.idPersona = idPersona;
         this.fechaRealizacion = fechaRealizacion;
         this.cantidadCigarrillos = cantidadCigarrillos;
         this.alcohol = alcohol;
@@ -489,6 +478,14 @@ public class EstadosSaludEnfermedad implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public int getIdPersona() {
+        return idPersona;
+    }
+
+    public void setIdPersona(int idPersona) {
+        this.idPersona = idPersona;
     }
 
     public Date getFechaRealizacion() {
@@ -1043,50 +1040,6 @@ public class EstadosSaludEnfermedad implements Serializable {
         this.idAccidentes = idAccidentes;
     }
 
-    @XmlTransient
-    public List<Incidentes> getIncidentesList() {
-        return incidentesList;
-    }
-
-    public void setIncidentesList(List<Incidentes> incidentesList) {
-        this.incidentesList = incidentesList;
-    }
-
-    public Personas getIdPersona() {
-        return idPersona;
-    }
-
-    public void setIdPersona(Personas idPersona) {
-        this.idPersona = idPersona;
-    }
-
-    @XmlTransient
-    public List<Enfermedades> getEnfermedadesList() {
-        return enfermedadesList;
-    }
-
-    public void setEnfermedadesList(List<Enfermedades> enfermedadesList) {
-        this.enfermedadesList = enfermedadesList;
-    }
-
-    @XmlTransient
-    public List<Siniestros> getSiniestrosList() {
-        return siniestrosList;
-    }
-
-    public void setSiniestrosList(List<Siniestros> siniestrosList) {
-        this.siniestrosList = siniestrosList;
-    }
-
-    @XmlTransient
-    public List<Accidentes> getAccidentesList() {
-        return accidentesList;
-    }
-
-    public void setAccidentesList(List<Accidentes> accidentesList) {
-        this.accidentesList = accidentesList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -1097,10 +1050,10 @@ public class EstadosSaludEnfermedad implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EstadosSaludEnfermedad)) {
+        if (!(object instanceof EstadoSaludEnfermedad)) {
             return false;
         }
-        EstadosSaludEnfermedad other = (EstadosSaludEnfermedad) object;
+        EstadoSaludEnfermedad other = (EstadoSaludEnfermedad) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -1109,7 +1062,7 @@ public class EstadosSaludEnfermedad implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.fcm.hcdl.model.EstadosSaludEnfermedad[ id=" + id + " ]";
+        return "edu.fcm.hcdl.model.EstadoSaludEnfermedad[ id=" + id + " ]";
     }
     
 }

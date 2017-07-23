@@ -6,45 +6,41 @@
 package edu.fcm.hcdl.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author martin
  */
 @Entity
-@Table(name = "Empresas")
+@Table(name = "Empresa")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Empresas.findAll", query = "SELECT e FROM Empresas e")
-    , @NamedQuery(name = "Empresas.findById", query = "SELECT e FROM Empresas e WHERE e.id = :id")
-    , @NamedQuery(name = "Empresas.findByNombre", query = "SELECT e FROM Empresas e WHERE e.nombre = :nombre")
-    , @NamedQuery(name = "Empresas.findByDireccion", query = "SELECT e FROM Empresas e WHERE e.direccion = :direccion")
-    , @NamedQuery(name = "Empresas.findByNumeroempleados", query = "SELECT e FROM Empresas e WHERE e.numeroempleados = :numeroempleados")
-    , @NamedQuery(name = "Empresas.findByPropiedadcapital", query = "SELECT e FROM Empresas e WHERE e.propiedadcapital = :propiedadcapital")
-    , @NamedQuery(name = "Empresas.findByArt", query = "SELECT e FROM Empresas e WHERE e.art = :art")
-    , @NamedQuery(name = "Empresas.findByNombreART", query = "SELECT e FROM Empresas e WHERE e.nombreART = :nombreART")
-    , @NamedQuery(name = "Empresas.findByAntiguedad", query = "SELECT e FROM Empresas e WHERE e.antiguedad = :antiguedad")
-    , @NamedQuery(name = "Empresas.findByMedico", query = "SELECT e FROM Empresas e WHERE e.medico = :medico")
-    , @NamedQuery(name = "Empresas.findByEspecialistaHigiene", query = "SELECT e FROM Empresas e WHERE e.especialistaHigiene = :especialistaHigiene")})
-public class Empresas implements Serializable {
+    @NamedQuery(name = "Empresa.findAll", query = "SELECT e FROM Empresa e")
+    , @NamedQuery(name = "Empresa.findById", query = "SELECT e FROM Empresa e WHERE e.id = :id")
+    , @NamedQuery(name = "Empresa.findByNombre", query = "SELECT e FROM Empresa e WHERE e.nombre = :nombre")
+    , @NamedQuery(name = "Empresa.findByDireccion", query = "SELECT e FROM Empresa e WHERE e.direccion = :direccion")
+    , @NamedQuery(name = "Empresa.findByNumeroempleados", query = "SELECT e FROM Empresa e WHERE e.numeroempleados = :numeroempleados")
+    , @NamedQuery(name = "Empresa.findByPropiedadcapital", query = "SELECT e FROM Empresa e WHERE e.propiedadcapital = :propiedadcapital")
+    , @NamedQuery(name = "Empresa.findByArt", query = "SELECT e FROM Empresa e WHERE e.art = :art")
+    , @NamedQuery(name = "Empresa.findByNombreART", query = "SELECT e FROM Empresa e WHERE e.nombreART = :nombreART")
+    , @NamedQuery(name = "Empresa.findByIdTipoempresa", query = "SELECT e FROM Empresa e WHERE e.idTipoempresa = :idTipoempresa")
+    , @NamedQuery(name = "Empresa.findByIdLocalidad", query = "SELECT e FROM Empresa e WHERE e.idLocalidad = :idLocalidad")
+    , @NamedQuery(name = "Empresa.findByAntiguedad", query = "SELECT e FROM Empresa e WHERE e.antiguedad = :antiguedad")
+    , @NamedQuery(name = "Empresa.findByMedico", query = "SELECT e FROM Empresa e WHERE e.medico = :medico")
+    , @NamedQuery(name = "Empresa.findByEspecialistaHigiene", query = "SELECT e FROM Empresa e WHERE e.especialistaHigiene = :especialistaHigiene")})
+public class Empresa implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -80,6 +76,14 @@ public class Empresas implements Serializable {
     private String nombreART;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "id_Tipo_empresa")
+    private int idTipoempresa;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_Localidad")
+    private int idLocalidad;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "Antiguedad")
     private int antiguedad;
     @Basic(optional = false)
@@ -90,29 +94,23 @@ public class Empresas implements Serializable {
     @NotNull
     @Column(name = "EspecialistaHigiene")
     private boolean especialistaHigiene;
-    @JoinColumn(name = "id_Tipo_empresa", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private TiposEmpresas idTipoempresa;
-    @JoinColumn(name = "id_Localidad", referencedColumnName = "id_localidad")
-    @ManyToOne(optional = false)
-    private Localidades idLocalidad;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEmpresa")
-    private List<Empleos> empleosList;
 
-    public Empresas() {
+    public Empresa() {
     }
 
-    public Empresas(Integer id) {
+    public Empresa(Integer id) {
         this.id = id;
     }
 
-    public Empresas(Integer id, String nombre, String direccion, int numeroempleados, String propiedadcapital, boolean art, int antiguedad, boolean medico, boolean especialistaHigiene) {
+    public Empresa(Integer id, String nombre, String direccion, int numeroempleados, String propiedadcapital, boolean art, int idTipoempresa, int idLocalidad, int antiguedad, boolean medico, boolean especialistaHigiene) {
         this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
         this.numeroempleados = numeroempleados;
         this.propiedadcapital = propiedadcapital;
         this.art = art;
+        this.idTipoempresa = idTipoempresa;
+        this.idLocalidad = idLocalidad;
         this.antiguedad = antiguedad;
         this.medico = medico;
         this.especialistaHigiene = especialistaHigiene;
@@ -174,6 +172,22 @@ public class Empresas implements Serializable {
         this.nombreART = nombreART;
     }
 
+    public int getIdTipoempresa() {
+        return idTipoempresa;
+    }
+
+    public void setIdTipoempresa(int idTipoempresa) {
+        this.idTipoempresa = idTipoempresa;
+    }
+
+    public int getIdLocalidad() {
+        return idLocalidad;
+    }
+
+    public void setIdLocalidad(int idLocalidad) {
+        this.idLocalidad = idLocalidad;
+    }
+
     public int getAntiguedad() {
         return antiguedad;
     }
@@ -198,31 +212,6 @@ public class Empresas implements Serializable {
         this.especialistaHigiene = especialistaHigiene;
     }
 
-    public TiposEmpresas getIdTipoempresa() {
-        return idTipoempresa;
-    }
-
-    public void setIdTipoempresa(TiposEmpresas idTipoempresa) {
-        this.idTipoempresa = idTipoempresa;
-    }
-
-    public Localidades getIdLocalidad() {
-        return idLocalidad;
-    }
-
-    public void setIdLocalidad(Localidades idLocalidad) {
-        this.idLocalidad = idLocalidad;
-    }
-
-    @XmlTransient
-    public List<Empleos> getEmpleosList() {
-        return empleosList;
-    }
-
-    public void setEmpleosList(List<Empleos> empleosList) {
-        this.empleosList = empleosList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -233,10 +222,10 @@ public class Empresas implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Empresas)) {
+        if (!(object instanceof Empresa)) {
             return false;
         }
-        Empresas other = (Empresas) object;
+        Empresa other = (Empresa) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -245,7 +234,7 @@ public class Empresas implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.fcm.hcdl.model.Empresas[ id=" + id + " ]";
+        return "edu.fcm.hcdl.model.Empresa[ id=" + id + " ]";
     }
     
 }

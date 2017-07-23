@@ -12,10 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,40 +24,41 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author martin
  */
 @Entity
-@Table(name = "SectoresTrabajos")
+@Table(name = "SectorTrabajo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SectoresTrabajos.findAll", query = "SELECT s FROM SectoresTrabajos s")
-    , @NamedQuery(name = "SectoresTrabajos.findById", query = "SELECT s FROM SectoresTrabajos s WHERE s.id = :id")
-    , @NamedQuery(name = "SectoresTrabajos.findByNombre", query = "SELECT s FROM SectoresTrabajos s WHERE s.nombre = :nombre")
-    , @NamedQuery(name = "SectoresTrabajos.findByEstadoEdificio", query = "SELECT s FROM SectoresTrabajos s WHERE s.estadoEdificio = :estadoEdificio")
-    , @NamedQuery(name = "SectoresTrabajos.findByEstadoPisos", query = "SELECT s FROM SectoresTrabajos s WHERE s.estadoPisos = :estadoPisos")
-    , @NamedQuery(name = "SectoresTrabajos.findByEstadoRampas", query = "SELECT s FROM SectoresTrabajos s WHERE s.estadoRampas = :estadoRampas")
-    , @NamedQuery(name = "SectoresTrabajos.findByEstadoAscensores", query = "SELECT s FROM SectoresTrabajos s WHERE s.estadoAscensores = :estadoAscensores")
-    , @NamedQuery(name = "SectoresTrabajos.findByEstadoSalidaEmergencia", query = "SELECT s FROM SectoresTrabajos s WHERE s.estadoSalidaEmergencia = :estadoSalidaEmergencia")
-    , @NamedQuery(name = "SectoresTrabajos.findByEstadoBanios", query = "SELECT s FROM SectoresTrabajos s WHERE s.estadoBanios = :estadoBanios")
-    , @NamedQuery(name = "SectoresTrabajos.findByEstadoInstElectricas", query = "SELECT s FROM SectoresTrabajos s WHERE s.estadoInstElectricas = :estadoInstElectricas")
-    , @NamedQuery(name = "SectoresTrabajos.findByEstadoInstAgua", query = "SELECT s FROM SectoresTrabajos s WHERE s.estadoInstAgua = :estadoInstAgua")
-    , @NamedQuery(name = "SectoresTrabajos.findByEstadoInstGas", query = "SELECT s FROM SectoresTrabajos s WHERE s.estadoInstGas = :estadoInstGas")
-    , @NamedQuery(name = "SectoresTrabajos.findByOrdenSector", query = "SELECT s FROM SectoresTrabajos s WHERE s.ordenSector = :ordenSector")
-    , @NamedQuery(name = "SectoresTrabajos.findByLimpiezaSector", query = "SELECT s FROM SectoresTrabajos s WHERE s.limpiezaSector = :limpiezaSector")
-    , @NamedQuery(name = "SectoresTrabajos.findBySe\u00f1alizacionSector", query = "SELECT s FROM SectoresTrabajos s WHERE s.se\u00f1alizacionSector = :se\u00f1alizacionSector")
-    , @NamedQuery(name = "SectoresTrabajos.findBySistContraIncendio", query = "SELECT s FROM SectoresTrabajos s WHERE s.sistContraIncendio = :sistContraIncendio")
-    , @NamedQuery(name = "SectoresTrabajos.findByMueblesSector", query = "SELECT s FROM SectoresTrabajos s WHERE s.mueblesSector = :mueblesSector")
-    , @NamedQuery(name = "SectoresTrabajos.findByMaquinasSector", query = "SELECT s FROM SectoresTrabajos s WHERE s.maquinasSector = :maquinasSector")
-    , @NamedQuery(name = "SectoresTrabajos.findByHerramientasSector", query = "SELECT s FROM SectoresTrabajos s WHERE s.herramientasSector = :herramientasSector")
-    , @NamedQuery(name = "SectoresTrabajos.findByOrdenamientoSector", query = "SELECT s FROM SectoresTrabajos s WHERE s.ordenamientoSector = :ordenamientoSector")
-    , @NamedQuery(name = "SectoresTrabajos.findByAmbTemperatura", query = "SELECT s FROM SectoresTrabajos s WHERE s.ambTemperatura = :ambTemperatura")
-    , @NamedQuery(name = "SectoresTrabajos.findByAmbHumedad", query = "SELECT s FROM SectoresTrabajos s WHERE s.ambHumedad = :ambHumedad")
-    , @NamedQuery(name = "SectoresTrabajos.findByAmbRuido", query = "SELECT s FROM SectoresTrabajos s WHERE s.ambRuido = :ambRuido")
-    , @NamedQuery(name = "SectoresTrabajos.findByAmbVibraciones", query = "SELECT s FROM SectoresTrabajos s WHERE s.ambVibraciones = :ambVibraciones")
-    , @NamedQuery(name = "SectoresTrabajos.findByAmbPolvos", query = "SELECT s FROM SectoresTrabajos s WHERE s.ambPolvos = :ambPolvos")
-    , @NamedQuery(name = "SectoresTrabajos.findByAmbGases", query = "SELECT s FROM SectoresTrabajos s WHERE s.ambGases = :ambGases")
-    , @NamedQuery(name = "SectoresTrabajos.findByAmbLiquidos", query = "SELECT s FROM SectoresTrabajos s WHERE s.ambLiquidos = :ambLiquidos")
-    , @NamedQuery(name = "SectoresTrabajos.findByAmbAerosoles", query = "SELECT s FROM SectoresTrabajos s WHERE s.ambAerosoles = :ambAerosoles")
-    , @NamedQuery(name = "SectoresTrabajos.findByAmbMaterialBiologico", query = "SELECT s FROM SectoresTrabajos s WHERE s.ambMaterialBiologico = :ambMaterialBiologico")
-    , @NamedQuery(name = "SectoresTrabajos.findByConsideraciones", query = "SELECT s FROM SectoresTrabajos s WHERE s.consideraciones = :consideraciones")})
-public class SectoresTrabajos implements Serializable {
+    @NamedQuery(name = "SectorTrabajo.findAll", query = "SELECT s FROM SectorTrabajo s")
+    , @NamedQuery(name = "SectorTrabajo.findById", query = "SELECT s FROM SectorTrabajo s WHERE s.id = :id")
+    , @NamedQuery(name = "SectorTrabajo.findByIdEmpleo", query = "SELECT s FROM SectorTrabajo s WHERE s.idEmpleo = :idEmpleo")
+    , @NamedQuery(name = "SectorTrabajo.findByNombre", query = "SELECT s FROM SectorTrabajo s WHERE s.nombre = :nombre")
+    , @NamedQuery(name = "SectorTrabajo.findByEstadoEdificio", query = "SELECT s FROM SectorTrabajo s WHERE s.estadoEdificio = :estadoEdificio")
+    , @NamedQuery(name = "SectorTrabajo.findByEstadoPisos", query = "SELECT s FROM SectorTrabajo s WHERE s.estadoPisos = :estadoPisos")
+    , @NamedQuery(name = "SectorTrabajo.findByEstadoRampas", query = "SELECT s FROM SectorTrabajo s WHERE s.estadoRampas = :estadoRampas")
+    , @NamedQuery(name = "SectorTrabajo.findByEstadoAscensores", query = "SELECT s FROM SectorTrabajo s WHERE s.estadoAscensores = :estadoAscensores")
+    , @NamedQuery(name = "SectorTrabajo.findByEstadoSalidaEmergencia", query = "SELECT s FROM SectorTrabajo s WHERE s.estadoSalidaEmergencia = :estadoSalidaEmergencia")
+    , @NamedQuery(name = "SectorTrabajo.findByEstadoBanios", query = "SELECT s FROM SectorTrabajo s WHERE s.estadoBanios = :estadoBanios")
+    , @NamedQuery(name = "SectorTrabajo.findByEstadoInstElectricas", query = "SELECT s FROM SectorTrabajo s WHERE s.estadoInstElectricas = :estadoInstElectricas")
+    , @NamedQuery(name = "SectorTrabajo.findByEstadoInstAgua", query = "SELECT s FROM SectorTrabajo s WHERE s.estadoInstAgua = :estadoInstAgua")
+    , @NamedQuery(name = "SectorTrabajo.findByEstadoInstGas", query = "SELECT s FROM SectorTrabajo s WHERE s.estadoInstGas = :estadoInstGas")
+    , @NamedQuery(name = "SectorTrabajo.findByOrdenSector", query = "SELECT s FROM SectorTrabajo s WHERE s.ordenSector = :ordenSector")
+    , @NamedQuery(name = "SectorTrabajo.findByLimpiezaSector", query = "SELECT s FROM SectorTrabajo s WHERE s.limpiezaSector = :limpiezaSector")
+    , @NamedQuery(name = "SectorTrabajo.findBySe\u00f1alizacionSector", query = "SELECT s FROM SectorTrabajo s WHERE s.se\u00f1alizacionSector = :se\u00f1alizacionSector")
+    , @NamedQuery(name = "SectorTrabajo.findBySistContraIncendio", query = "SELECT s FROM SectorTrabajo s WHERE s.sistContraIncendio = :sistContraIncendio")
+    , @NamedQuery(name = "SectorTrabajo.findByMueblesSector", query = "SELECT s FROM SectorTrabajo s WHERE s.mueblesSector = :mueblesSector")
+    , @NamedQuery(name = "SectorTrabajo.findByMaquinasSector", query = "SELECT s FROM SectorTrabajo s WHERE s.maquinasSector = :maquinasSector")
+    , @NamedQuery(name = "SectorTrabajo.findByHerramientasSector", query = "SELECT s FROM SectorTrabajo s WHERE s.herramientasSector = :herramientasSector")
+    , @NamedQuery(name = "SectorTrabajo.findByOrdenamientoSector", query = "SELECT s FROM SectorTrabajo s WHERE s.ordenamientoSector = :ordenamientoSector")
+    , @NamedQuery(name = "SectorTrabajo.findByAmbTemperatura", query = "SELECT s FROM SectorTrabajo s WHERE s.ambTemperatura = :ambTemperatura")
+    , @NamedQuery(name = "SectorTrabajo.findByAmbHumedad", query = "SELECT s FROM SectorTrabajo s WHERE s.ambHumedad = :ambHumedad")
+    , @NamedQuery(name = "SectorTrabajo.findByAmbRuido", query = "SELECT s FROM SectorTrabajo s WHERE s.ambRuido = :ambRuido")
+    , @NamedQuery(name = "SectorTrabajo.findByAmbVibraciones", query = "SELECT s FROM SectorTrabajo s WHERE s.ambVibraciones = :ambVibraciones")
+    , @NamedQuery(name = "SectorTrabajo.findByAmbPolvos", query = "SELECT s FROM SectorTrabajo s WHERE s.ambPolvos = :ambPolvos")
+    , @NamedQuery(name = "SectorTrabajo.findByAmbGases", query = "SELECT s FROM SectorTrabajo s WHERE s.ambGases = :ambGases")
+    , @NamedQuery(name = "SectorTrabajo.findByAmbLiquidos", query = "SELECT s FROM SectorTrabajo s WHERE s.ambLiquidos = :ambLiquidos")
+    , @NamedQuery(name = "SectorTrabajo.findByAmbAerosoles", query = "SELECT s FROM SectorTrabajo s WHERE s.ambAerosoles = :ambAerosoles")
+    , @NamedQuery(name = "SectorTrabajo.findByAmbMaterialBiologico", query = "SELECT s FROM SectorTrabajo s WHERE s.ambMaterialBiologico = :ambMaterialBiologico")
+    , @NamedQuery(name = "SectorTrabajo.findByConsideraciones", query = "SELECT s FROM SectorTrabajo s WHERE s.consideraciones = :consideraciones")})
+public class SectorTrabajo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -67,6 +66,10 @@ public class SectoresTrabajos implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idEmpleo")
+    private int idEmpleo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -203,19 +206,17 @@ public class SectoresTrabajos implements Serializable {
     @Size(max = 256)
     @Column(name = "consideraciones")
     private String consideraciones;
-    @JoinColumn(name = "idEmpleo", referencedColumnName = "id")
-    @OneToOne(optional = false)
-    private Empleos idEmpleo;
 
-    public SectoresTrabajos() {
+    public SectorTrabajo() {
     }
 
-    public SectoresTrabajos(Integer id) {
+    public SectorTrabajo(Integer id) {
         this.id = id;
     }
 
-    public SectoresTrabajos(Integer id, String nombre, String estadoPisos, String estadoRampas, String estadoAscensores, String estadoSalidaEmergencia, String estadoBanios, String estadoInstElectricas, String estadoInstAgua, String estadoInstGas, String ordenSector, String limpiezaSector, String señalizacionSector, String sistContraIncendio, String mueblesSector, String maquinasSector, String herramientasSector, String ordenamientoSector, String ambTemperatura, String ambHumedad, String ambRuido, String ambVibraciones, String ambPolvos, String ambGases, String ambLiquidos, String ambAerosoles, String ambMaterialBiologico) {
+    public SectorTrabajo(Integer id, int idEmpleo, String nombre, String estadoPisos, String estadoRampas, String estadoAscensores, String estadoSalidaEmergencia, String estadoBanios, String estadoInstElectricas, String estadoInstAgua, String estadoInstGas, String ordenSector, String limpiezaSector, String señalizacionSector, String sistContraIncendio, String mueblesSector, String maquinasSector, String herramientasSector, String ordenamientoSector, String ambTemperatura, String ambHumedad, String ambRuido, String ambVibraciones, String ambPolvos, String ambGases, String ambLiquidos, String ambAerosoles, String ambMaterialBiologico) {
         this.id = id;
+        this.idEmpleo = idEmpleo;
         this.nombre = nombre;
         this.estadoPisos = estadoPisos;
         this.estadoRampas = estadoRampas;
@@ -250,6 +251,14 @@ public class SectoresTrabajos implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public int getIdEmpleo() {
+        return idEmpleo;
+    }
+
+    public void setIdEmpleo(int idEmpleo) {
+        this.idEmpleo = idEmpleo;
     }
 
     public String getNombre() {
@@ -476,14 +485,6 @@ public class SectoresTrabajos implements Serializable {
         this.consideraciones = consideraciones;
     }
 
-    public Empleos getIdEmpleo() {
-        return idEmpleo;
-    }
-
-    public void setIdEmpleo(Empleos idEmpleo) {
-        this.idEmpleo = idEmpleo;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -494,10 +495,10 @@ public class SectoresTrabajos implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SectoresTrabajos)) {
+        if (!(object instanceof SectorTrabajo)) {
             return false;
         }
-        SectoresTrabajos other = (SectoresTrabajos) object;
+        SectorTrabajo other = (SectorTrabajo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -506,7 +507,7 @@ public class SectoresTrabajos implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.fcm.hcdl.model.SectoresTrabajos[ id=" + id + " ]";
+        return "edu.fcm.hcdl.model.SectorTrabajo[ id=" + id + " ]";
     }
     
 }

@@ -1,19 +1,19 @@
 
 package edu.fcm.hcdl.dao;
 
-import edu.fcm.hcdl.model.Provincias;
+import edu.fcm.hcdl.model.Provincia;
 import java.util.List;
 
 public interface ProvinciaDao {
     
-    public List<Provincias> getAll();
+    public List<Provincia> getAll();
     
-    public void createProvincia (Provincias p);
+    public void createProvincia (Provincia p);
     
-    public void editProvincia (Provincias p);
+    public void editProvincia (Provincia p);
     
     public void removeProvincia (int id);
     
-    public Provincias getProvincia (int id);
+    public Provincia getProvincia (int id);
     
 }

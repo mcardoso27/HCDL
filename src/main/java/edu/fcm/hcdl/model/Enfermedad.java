@@ -13,8 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -29,16 +27,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author martin
  */
 @Entity
-@Table(name = "Enfermedades")
+@Table(name = "Enfermedad")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Enfermedades.findAll", query = "SELECT e FROM Enfermedades e")
-    , @NamedQuery(name = "Enfermedades.findByIdEnfermedades", query = "SELECT e FROM Enfermedades e WHERE e.idEnfermedades = :idEnfermedades")
-    , @NamedQuery(name = "Enfermedades.findByCodigoCIE10", query = "SELECT e FROM Enfermedades e WHERE e.codigoCIE10 = :codigoCIE10")
-    , @NamedQuery(name = "Enfermedades.findByFamiliarEnfermo", query = "SELECT e FROM Enfermedades e WHERE e.familiarEnfermo = :familiarEnfermo")
-    , @NamedQuery(name = "Enfermedades.findByFechaInicio", query = "SELECT e FROM Enfermedades e WHERE e.fechaInicio = :fechaInicio")
-    , @NamedQuery(name = "Enfermedades.findByFechaFin", query = "SELECT e FROM Enfermedades e WHERE e.fechaFin = :fechaFin")})
-public class Enfermedades implements Serializable {
+    @NamedQuery(name = "Enfermedad.findAll", query = "SELECT e FROM Enfermedad e")
+    , @NamedQuery(name = "Enfermedad.findByIdEnfermedades", query = "SELECT e FROM Enfermedad e WHERE e.idEnfermedades = :idEnfermedades")
+    , @NamedQuery(name = "Enfermedad.findByCodigoCIE10", query = "SELECT e FROM Enfermedad e WHERE e.codigoCIE10 = :codigoCIE10")
+    , @NamedQuery(name = "Enfermedad.findByFamiliarEnfermo", query = "SELECT e FROM Enfermedad e WHERE e.familiarEnfermo = :familiarEnfermo")
+    , @NamedQuery(name = "Enfermedad.findByFechaInicio", query = "SELECT e FROM Enfermedad e WHERE e.fechaInicio = :fechaInicio")
+    , @NamedQuery(name = "Enfermedad.findByFechaFin", query = "SELECT e FROM Enfermedad e WHERE e.fechaFin = :fechaFin")
+    , @NamedQuery(name = "Enfermedad.findByIdestadoSaludEnfermedad", query = "SELECT e FROM Enfermedad e WHERE e.idestadoSaludEnfermedad = :idestadoSaludEnfermedad")})
+public class Enfermedad implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -60,20 +59,22 @@ public class Enfermedades implements Serializable {
     @Column(name = "fecha_fin")
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
-    @JoinColumn(name = "id_estadoSaludEnfermedad", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private EstadosSaludEnfermedad idestadoSaludEnfermedad;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_estadoSaludEnfermedad")
+    private int idestadoSaludEnfermedad;
 
-    public Enfermedades() {
+    public Enfermedad() {
     }
 
-    public Enfermedades(Integer idEnfermedades) {
+    public Enfermedad(Integer idEnfermedades) {
         this.idEnfermedades = idEnfermedades;
     }
 
-    public Enfermedades(Integer idEnfermedades, String codigoCIE10) {
+    public Enfermedad(Integer idEnfermedades, String codigoCIE10, int idestadoSaludEnfermedad) {
         this.idEnfermedades = idEnfermedades;
         this.codigoCIE10 = codigoCIE10;
+        this.idestadoSaludEnfermedad = idestadoSaludEnfermedad;
     }
 
     public Integer getIdEnfermedades() {
@@ -116,11 +117,11 @@ public class Enfermedades implements Serializable {
         this.fechaFin = fechaFin;
     }
 
-    public EstadosSaludEnfermedad getIdestadoSaludEnfermedad() {
+    public int getIdestadoSaludEnfermedad() {
         return idestadoSaludEnfermedad;
     }
 
-    public void setIdestadoSaludEnfermedad(EstadosSaludEnfermedad idestadoSaludEnfermedad) {
+    public void setIdestadoSaludEnfermedad(int idestadoSaludEnfermedad) {
         this.idestadoSaludEnfermedad = idestadoSaludEnfermedad;
     }
 
@@ -134,10 +135,10 @@ public class Enfermedades implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Enfermedades)) {
+        if (!(object instanceof Enfermedad)) {
             return false;
         }
-        Enfermedades other = (Enfermedades) object;
+        Enfermedad other = (Enfermedad) object;
         if ((this.idEnfermedades == null && other.idEnfermedades != null) || (this.idEnfermedades != null && !this.idEnfermedades.equals(other.idEnfermedades))) {
             return false;
         }
@@ -146,7 +147,7 @@ public class Enfermedades implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.fcm.hcdl.model.Enfermedades[ idEnfermedades=" + idEnfermedades + " ]";
+        return "edu.fcm.hcdl.model.Enfermedad[ idEnfermedades=" + idEnfermedades + " ]";
     }
     
 }

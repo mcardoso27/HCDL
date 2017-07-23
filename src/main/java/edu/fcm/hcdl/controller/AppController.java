@@ -1,6 +1,5 @@
 package edu.fcm.hcdl.controller;
 
-import edu.fcm.hcdl.model.Provincias;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,7 +30,7 @@ import edu.fcm.hcdl.service.ProvinciaService;
 import edu.fcm.hcdl.service.UserProfileService;
 import edu.fcm.hcdl.service.UserService;
 
-import edu.fcm.hcdl.model.Provincias;
+import edu.fcm.hcdl.model.Provincia;
 
 @Controller
 @RequestMapping("/")
@@ -60,7 +59,7 @@ public class AppController {
     @RequestMapping(value = "/provinciasList", method = RequestMethod.GET)
         public String provinciasList(ModelMap model) {
         System.out.println("ENTRO A provincias LIST");
-        List<Provincias> pl = provinciaService.findAllProvincias();
+        List<Provincia> pl = provinciaService.findAllProvincias();
         model.addAttribute("lst", pl);
         return "provinciaList";
     }
@@ -68,13 +67,13 @@ public class AppController {
     @RequestMapping(value = "/provinciaCreate", method = RequestMethod.GET)
         public String provinciaNew(ModelMap model) {
         System.out.println("ENTRO A provincia CREATE");
-        List<Provincias> pl = provinciaService.findAllProvincias();
+        List<Provincia> pl = provinciaService.findAllProvincias();
         model.addAttribute("lst", pl);
         return "provinciaCreate";
     }
         
     @RequestMapping(value = "/provinciaCreate", method = RequestMethod.POST)
-    public String provinciaSave(ModelMap model,Provincias provincia, BindingResult result) {
+    public String provinciaSave(ModelMap model,Provincia provincia, BindingResult result) {
         return "hola";
     }
     

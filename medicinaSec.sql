@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `medicina` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `medicina`;
 -- MySQL dump 10.13  Distrib 5.5.55, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: medicina
@@ -16,41 +18,40 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Accidentes`
+-- Table structure for table `Accidente`
 --
 
-DROP TABLE IF EXISTS `Accidentes`;
+DROP TABLE IF EXISTS `Accidente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Accidentes` (
+CREATE TABLE `Accidente` (
   `idAccidentes` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(400) DEFAULT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date NOT NULL,
   `id_estadoSaludEnfermedad` int(11) DEFAULT NULL,
   PRIMARY KEY (`idAccidentes`),
-  KEY `fk_Accidentes_1_idx` (`id_estadoSaludEnfermedad`),
-  CONSTRAINT `fk_Accidentes_1` FOREIGN KEY (`id_estadoSaludEnfermedad`) REFERENCES `EstadosSaludEnfermedad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_Accidentes_1_idx` (`id_estadoSaludEnfermedad`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Accidentes`
+-- Dumping data for table `Accidente`
 --
 
-LOCK TABLES `Accidentes` WRITE;
-/*!40000 ALTER TABLE `Accidentes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Accidentes` ENABLE KEYS */;
+LOCK TABLES `Accidente` WRITE;
+/*!40000 ALTER TABLE `Accidente` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Accidente` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `AccionesPreventivas`
+-- Table structure for table `AccionPreventiva`
 --
 
-DROP TABLE IF EXISTS `AccionesPreventivas`;
+DROP TABLE IF EXISTS `AccionPreventiva`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `AccionesPreventivas` (
+CREATE TABLE `AccionPreventiva` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_empleo` int(11) NOT NULL,
   `recibioCapacitacion` tinyint(1) NOT NULL,
@@ -58,28 +59,27 @@ CREATE TABLE `AccionesPreventivas` (
   `ElementosOtorgados` varchar(256) NOT NULL,
   `ResposableSegTrabajo` enum('Nadie','Ingeniero','Licenciado','Persona sin formacion') NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_empleo` (`id_empleo`),
-  CONSTRAINT `AccionesPreventivas_ibfk_1` FOREIGN KEY (`id_empleo`) REFERENCES `Empleos` (`id`)
+  UNIQUE KEY `id_empleo` (`id_empleo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `AccionesPreventivas`
+-- Dumping data for table `AccionPreventiva`
 --
 
-LOCK TABLES `AccionesPreventivas` WRITE;
-/*!40000 ALTER TABLE `AccionesPreventivas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `AccionesPreventivas` ENABLE KEYS */;
+LOCK TABLES `AccionPreventiva` WRITE;
+/*!40000 ALTER TABLE `AccionPreventiva` DISABLE KEYS */;
+/*!40000 ALTER TABLE `AccionPreventiva` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Empleos`
+-- Table structure for table `Empleo`
 --
 
-DROP TABLE IF EXISTS `Empleos`;
+DROP TABLE IF EXISTS `Empleo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Empleos` (
+CREATE TABLE `Empleo` (
   `id_empresa` int(11) NOT NULL,
   `id_empleado` int(11) NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -88,30 +88,28 @@ CREATE TABLE `Empleos` (
   `cargo` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_empresa` (`id_empresa`),
-  KEY `id_empleado` (`id_empleado`),
-  CONSTRAINT `Empleos_ibfk_1` FOREIGN KEY (`id_empresa`) REFERENCES `Empresas` (`id`),
-  CONSTRAINT `Empleos_ibfk_2` FOREIGN KEY (`id_empleado`) REFERENCES `Personas` (`id`)
+  KEY `id_empleado` (`id_empleado`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Empleos`
+-- Dumping data for table `Empleo`
 --
 
-LOCK TABLES `Empleos` WRITE;
-/*!40000 ALTER TABLE `Empleos` DISABLE KEYS */;
-INSERT INTO `Empleos` VALUES (1,6,1,'2014-03-01',NULL,'Primer Empleo cargado al sistema'),(1,6,4,'2014-03-01',NULL,'Primer Empleo cargado al sistema'),(1,6,5,'2014-06-02','2015-05-04','Desarrollador'),(1,6,6,'2014-06-02','2017-06-03','Desarrollador'),(1,6,8,'2014-03-01','0000-00-00','Primer Empleo cargado al sistema'),(1,6,10,'2017-04-13','2017-06-03','Desarrollador'),(1,6,11,'2017-04-11','2017-04-06','Desarrollador');
-/*!40000 ALTER TABLE `Empleos` ENABLE KEYS */;
+LOCK TABLES `Empleo` WRITE;
+/*!40000 ALTER TABLE `Empleo` DISABLE KEYS */;
+INSERT INTO `Empleo` VALUES (1,6,1,'2014-03-01',NULL,'Primer Empleo cargado al sistema'),(1,6,4,'2014-03-01',NULL,'Primer Empleo cargado al sistema'),(1,6,5,'2014-06-02','2015-05-04','Desarrollador'),(1,6,6,'2014-06-02','2017-06-03','Desarrollador'),(1,6,10,'2017-04-13','2017-06-03','Desarrollador'),(1,6,11,'2017-04-11','2017-04-06','Desarrollador');
+/*!40000 ALTER TABLE `Empleo` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Empresas`
+-- Table structure for table `Empresa`
 --
 
-DROP TABLE IF EXISTS `Empresas`;
+DROP TABLE IF EXISTS `Empresa`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Empresas` (
+CREATE TABLE `Empresa` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(256) NOT NULL,
   `Direccion` varchar(256) NOT NULL,
@@ -126,30 +124,28 @@ CREATE TABLE `Empresas` (
   `EspecialistaHigiene` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_Tipo_empresa` (`id_Tipo_empresa`),
-  KEY `fk_Empresas_1_idx` (`id_Localidad`),
-  CONSTRAINT `Empresas_ibfk_2` FOREIGN KEY (`id_Tipo_empresa`) REFERENCES `TiposEmpresas` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `fk_Empresas_1` FOREIGN KEY (`id_Localidad`) REFERENCES `Localidades` (`id_localidad`) ON DELETE NO ACTION ON UPDATE CASCADE
+  KEY `fk_Empresas_1_idx` (`id_Localidad`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Empresas`
+-- Dumping data for table `Empresa`
 --
 
-LOCK TABLES `Empresas` WRITE;
-/*!40000 ALTER TABLE `Empresas` DISABLE KEYS */;
-INSERT INTO `Empresas` VALUES (1,'FCM-FICH-UNL','Paraje el Pozo',1500,'Publica',0,NULL,1,4,55,1,1),(2,'MC10 Construcciones','Av. Siempreviva 742',45,'Mixta',1,'Sancor',2,1,3,1,1),(7,'Serfe','Alguna Calle',30,'Privada',1,'San Cristobal Seguros',5,16,10,0,0),(8,'Metalúgica Pepe','Street View 89',8,'Mixta',1,'Uruguay Seguros',2,8,3,1,0),(9,'Todo por $2','Centenera 768',3,'Privada',1,'Uruguay Seguros',13,1,2,1,0);
-/*!40000 ALTER TABLE `Empresas` ENABLE KEYS */;
+LOCK TABLES `Empresa` WRITE;
+/*!40000 ALTER TABLE `Empresa` DISABLE KEYS */;
+INSERT INTO `Empresa` VALUES (1,'FCM-FICH-UNL','Paraje el Pozo',1500,'Publica',0,NULL,1,4,55,1,1),(2,'MC10 Construcciones','Av. Siempreviva 742',45,'Mixta',1,'Sancor',2,1,3,1,1),(7,'Serfe','Alguna Calle',30,'Privada',1,'San Cristobal Seguros',5,16,10,0,0),(8,'Metalúgica Pepe','Street View 89',8,'Mixta',1,'Uruguay Seguros',2,8,3,1,0),(9,'Todo por $2','Centenera 768',3,'Privada',1,'Uruguay Seguros',13,1,2,1,0);
+/*!40000 ALTER TABLE `Empresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Enfermedades`
+-- Table structure for table `Enfermedad`
 --
 
-DROP TABLE IF EXISTS `Enfermedades`;
+DROP TABLE IF EXISTS `Enfermedad`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Enfermedades` (
+CREATE TABLE `Enfermedad` (
   `idEnfermedades` int(11) NOT NULL AUTO_INCREMENT,
   `codigoCIE10` varchar(45) NOT NULL,
   `familiarEnfermo` enum('Conyuge','Hijo','Padre','Madre','Otro') DEFAULT NULL,
@@ -157,28 +153,27 @@ CREATE TABLE `Enfermedades` (
   `fecha_fin` date DEFAULT NULL,
   `id_estadoSaludEnfermedad` int(11) NOT NULL,
   PRIMARY KEY (`idEnfermedades`),
-  KEY `fk_Estados_salud_enfermedad_idx` (`id_estadoSaludEnfermedad`),
-  CONSTRAINT `fk_Estados_salud_enfermedad` FOREIGN KEY (`id_estadoSaludEnfermedad`) REFERENCES `EstadosSaludEnfermedad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_Estados_salud_enfermedad_idx` (`id_estadoSaludEnfermedad`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Enfermedades`
+-- Dumping data for table `Enfermedad`
 --
 
-LOCK TABLES `Enfermedades` WRITE;
-/*!40000 ALTER TABLE `Enfermedades` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Enfermedades` ENABLE KEYS */;
+LOCK TABLES `Enfermedad` WRITE;
+/*!40000 ALTER TABLE `Enfermedad` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Enfermedad` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `EstadosSaludEnfermedad`
+-- Table structure for table `EstadoSaludEnfermedad`
 --
 
-DROP TABLE IF EXISTS `EstadosSaludEnfermedad`;
+DROP TABLE IF EXISTS `EstadoSaludEnfermedad`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `EstadosSaludEnfermedad` (
+CREATE TABLE `EstadoSaludEnfermedad` (
   `id` int(11) NOT NULL,
   `id_persona` int(11) NOT NULL,
   `fecha_realizacion` datetime NOT NULL,
@@ -251,74 +246,71 @@ CREATE TABLE `EstadosSaludEnfermedad` (
   `RecibioCapacitacion` tinyint(1) NOT NULL,
   `id_accidentes` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_persona` (`id_persona`),
-  CONSTRAINT `EstadosSaludEnfermedad_ibfk_2` FOREIGN KEY (`id_persona`) REFERENCES `Personas` (`id`)
+  UNIQUE KEY `id_persona` (`id_persona`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `EstadosSaludEnfermedad`
+-- Dumping data for table `EstadoSaludEnfermedad`
 --
 
-LOCK TABLES `EstadosSaludEnfermedad` WRITE;
-/*!40000 ALTER TABLE `EstadosSaludEnfermedad` DISABLE KEYS */;
-/*!40000 ALTER TABLE `EstadosSaludEnfermedad` ENABLE KEYS */;
+LOCK TABLES `EstadoSaludEnfermedad` WRITE;
+/*!40000 ALTER TABLE `EstadoSaludEnfermedad` DISABLE KEYS */;
+/*!40000 ALTER TABLE `EstadoSaludEnfermedad` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Incidentes`
+-- Table structure for table `Incidente`
 --
 
-DROP TABLE IF EXISTS `Incidentes`;
+DROP TABLE IF EXISTS `Incidente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Incidentes` (
+CREATE TABLE `Incidente` (
   `idIncidentes` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(400) DEFAULT NULL,
   `fecha_inicio` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL,
   `fk_estadosSaludEnfermedad` int(11) NOT NULL,
   PRIMARY KEY (`idIncidentes`),
-  KEY `fk_SaludEnfermedad_idx` (`fk_estadosSaludEnfermedad`),
-  CONSTRAINT `fk_SaludEnfermedad` FOREIGN KEY (`fk_estadosSaludEnfermedad`) REFERENCES `EstadosSaludEnfermedad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_SaludEnfermedad_idx` (`fk_estadosSaludEnfermedad`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Incidentes`
+-- Dumping data for table `Incidente`
 --
 
-LOCK TABLES `Incidentes` WRITE;
-/*!40000 ALTER TABLE `Incidentes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Incidentes` ENABLE KEYS */;
+LOCK TABLES `Incidente` WRITE;
+/*!40000 ALTER TABLE `Incidente` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Incidente` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Localidades`
+-- Table structure for table `Localidad`
 --
 
-DROP TABLE IF EXISTS `Localidades`;
+DROP TABLE IF EXISTS `Localidad`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Localidades` (
+CREATE TABLE `Localidad` (
   `codigopostal` int(11) NOT NULL,
   `id_provincia` int(11) NOT NULL,
   `nombre` varchar(256) NOT NULL,
   `id_localidad` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id_localidad`),
-  KEY `id_provincia` (`id_provincia`),
-  CONSTRAINT `Localidades_ibfk_1` FOREIGN KEY (`id_provincia`) REFERENCES `Provincias` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
+  KEY `id_provincia` (`id_provincia`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Localidades`
+-- Dumping data for table `Localidad`
 --
 
-LOCK TABLES `Localidades` WRITE;
-/*!40000 ALTER TABLE `Localidades` DISABLE KEYS */;
-INSERT INTO `Localidades` VALUES (3100,1,'Paraná',1),(1234,4,'Capital Federal',4),(4321,2,'Rosario',5),(12345,1,'La Paz',6),(98865,4,'San Telmo',8),(34566,4,'Mar del Plata',9),(35678,9,'San Fernando del Valle de Catamarca',15),(3000,2,'Santa Fe de la Vera Cruz',16);
-/*!40000 ALTER TABLE `Localidades` ENABLE KEYS */;
+LOCK TABLES `Localidad` WRITE;
+/*!40000 ALTER TABLE `Localidad` DISABLE KEYS */;
+INSERT INTO `Localidad` VALUES (3100,1,'Paraná',1),(1234,4,'Capital Federal',4),(4321,2,'Rosario',5),(12345,1,'La Paz',6),(98865,4,'San Telmo',8),(34566,4,'Mar del Plata',9),(35678,9,'San Fernando del Valle de Catamarca',15),(3000,2,'Santa Fe de la Vera Cruz',16);
+/*!40000 ALTER TABLE `Localidad` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -347,13 +339,13 @@ LOCK TABLES `PersistentsLogins` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Personas`
+-- Table structure for table `Persona`
 --
 
-DROP TABLE IF EXISTS `Personas`;
+DROP TABLE IF EXISTS `Persona`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Personas` (
+CREATE TABLE `Persona` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombreyapellido` varchar(256) NOT NULL,
   `DNI` varchar(15) NOT NULL,
@@ -365,29 +357,28 @@ CREATE TABLE `Personas` (
   `numero_hijos` int(11) NOT NULL,
   `DatosVarios` varchar(1024) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_Personas_1_idx` (`id_localidad`),
-  CONSTRAINT `fk_Personas_1` FOREIGN KEY (`id_localidad`) REFERENCES `Localidades` (`id_localidad`) ON DELETE SET NULL ON UPDATE CASCADE
+  KEY `fk_Personas_1_idx` (`id_localidad`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Personas`
+-- Dumping data for table `Persona`
 --
 
-LOCK TABLES `Personas` WRITE;
-/*!40000 ALTER TABLE `Personas` DISABLE KEYS */;
-INSERT INTO `Personas` VALUES (6,'Martin Cardoso','36269234',1,'Pacto U Nacional 821','1992-01-27','Masculino','Soltero',0,'Estudiante de Ing Informática'),(15,'Arturito','234',6,'Nose 321','2017-04-05','Femenino','Soltero',2,'No se quien es'),(16,'María Magdalena','123456789',8,'Algun Lugar 123','1980-08-22','Femenino','Divorciado',2,'WarinkaTInka'),(17,'Gonza Lito','40234567',9,'Colon','1998-09-25','Masculino','Soltero',2,'Nada'),(18,'Sofía','36098234',1,'Perez Colman','2017-04-27','Femenino','Soltero',0,'La sofi'),(21,'María','1233456789',15,'Av Siempreviva','1935-06-03','Femenino','Soltero',3,'Se relaciona a los Simpsons'),(22,'Juana','23567',16,'De Arco','1941-09-04','Femenino','Viudo',0,'Saludos'),(23,'Jean Carlo','987654321',9,'Dirección 217','1951-08-04','Masculino','Viudo',0,'CantaAutor');
-/*!40000 ALTER TABLE `Personas` ENABLE KEYS */;
+LOCK TABLES `Persona` WRITE;
+/*!40000 ALTER TABLE `Persona` DISABLE KEYS */;
+INSERT INTO `Persona` VALUES (6,'Martin Cardoso','36269234',1,'Pacto U Nacional 821','1992-01-27','Masculino','Soltero',0,'Estudiante de Ing Informática'),(15,'Arturito','234',6,'Nose 321','2017-04-05','Femenino','Soltero',2,'No se quien es'),(16,'María Magdalena','123456789',8,'Algun Lugar 123','1980-08-22','Femenino','Divorciado',2,'WarinkaTInka'),(17,'Gonza Lito','40234567',9,'Colon','1998-09-25','Masculino','Soltero',2,'Nada'),(18,'Sofía','36098234',1,'Perez Colman','2017-04-27','Femenino','Soltero',0,'La sofi'),(21,'María','1233456789',15,'Av Siempreviva','1935-06-03','Femenino','Soltero',3,'Se relaciona a los Simpsons'),(22,'Juana','23567',16,'De Arco','1941-09-04','Femenino','Viudo',0,'Saludos'),(23,'Jean Carlo','987654321',9,'Dirección 217','1951-08-04','Masculino','Viudo',0,'CantaAutor');
+/*!40000 ALTER TABLE `Persona` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Provincias`
+-- Table structure for table `Provincia`
 --
 
-DROP TABLE IF EXISTS `Provincias`;
+DROP TABLE IF EXISTS `Provincia`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Provincias` (
+CREATE TABLE `Provincia` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(256) NOT NULL,
   PRIMARY KEY (`id`)
@@ -395,23 +386,23 @@ CREATE TABLE `Provincias` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Provincias`
+-- Dumping data for table `Provincia`
 --
 
-LOCK TABLES `Provincias` WRITE;
-/*!40000 ALTER TABLE `Provincias` DISABLE KEYS */;
-INSERT INTO `Provincias` VALUES (1,'Entre Ríos'),(2,'Santa Fe'),(4,'Buenos Aires (BSAS)'),(7,'Río Negro Ñandú'),(9,'Catamarca'),(10,'Mendoza'),(11,'Corrientes');
-/*!40000 ALTER TABLE `Provincias` ENABLE KEYS */;
+LOCK TABLES `Provincia` WRITE;
+/*!40000 ALTER TABLE `Provincia` DISABLE KEYS */;
+INSERT INTO `Provincia` VALUES (1,'Entre Ríos'),(2,'Santa Fe'),(4,'Buenos Aires (BSAS)'),(7,'Río Negro Ñandú'),(9,'Catamarca'),(10,'Mendoza'),(11,'Corrientes');
+/*!40000 ALTER TABLE `Provincia` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `PuestosTrabajos`
+-- Table structure for table `PuestoTrabajo`
 --
 
-DROP TABLE IF EXISTS `PuestosTrabajos`;
+DROP TABLE IF EXISTS `PuestoTrabajo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `PuestosTrabajos` (
+CREATE TABLE `PuestoTrabajo` (
   `id` int(11) NOT NULL,
   `id_empleo` int(11) NOT NULL,
   `rf_carga_termica` enum('Baja','Alta','Muy alta','No se presenta') NOT NULL,
@@ -469,28 +460,27 @@ CREATE TABLE `PuestosTrabajos` (
   `as_PracticaDeportes` enum('A veces','Frecuentemente','No') NOT NULL,
   `as_AltoRiesgoLaboral` varchar(256) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_empleo` (`id_empleo`),
-  CONSTRAINT `PuestosTrabajos_ibfk_1` FOREIGN KEY (`id_empleo`) REFERENCES `Empleos` (`id`)
+  UNIQUE KEY `id_empleo` (`id_empleo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `PuestosTrabajos`
+-- Dumping data for table `PuestoTrabajo`
 --
 
-LOCK TABLES `PuestosTrabajos` WRITE;
-/*!40000 ALTER TABLE `PuestosTrabajos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `PuestosTrabajos` ENABLE KEYS */;
+LOCK TABLES `PuestoTrabajo` WRITE;
+/*!40000 ALTER TABLE `PuestoTrabajo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `PuestoTrabajo` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `SectoresTrabajos`
+-- Table structure for table `SectorTrabajo`
 --
 
-DROP TABLE IF EXISTS `SectoresTrabajos`;
+DROP TABLE IF EXISTS `SectorTrabajo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `SectoresTrabajos` (
+CREATE TABLE `SectorTrabajo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idEmpleo` int(11) NOT NULL,
   `Nombre` varchar(100) NOT NULL,
@@ -522,56 +512,54 @@ CREATE TABLE `SectoresTrabajos` (
   `ambMaterialBiologico` enum('Si','No','Desconoce') NOT NULL,
   `consideraciones` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `idEmpleo` (`idEmpleo`),
-  CONSTRAINT `SectoresTrabajos_ibfk_1` FOREIGN KEY (`idEmpleo`) REFERENCES `Empleos` (`id`)
+  UNIQUE KEY `idEmpleo` (`idEmpleo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `SectoresTrabajos`
+-- Dumping data for table `SectorTrabajo`
 --
 
-LOCK TABLES `SectoresTrabajos` WRITE;
-/*!40000 ALTER TABLE `SectoresTrabajos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `SectoresTrabajos` ENABLE KEYS */;
+LOCK TABLES `SectorTrabajo` WRITE;
+/*!40000 ALTER TABLE `SectorTrabajo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `SectorTrabajo` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Siniestros`
+-- Table structure for table `Siniestro`
 --
 
-DROP TABLE IF EXISTS `Siniestros`;
+DROP TABLE IF EXISTS `Siniestro`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Siniestros` (
+CREATE TABLE `Siniestro` (
   `idSiniestros` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(300) DEFAULT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date NOT NULL,
   `id_estadoSaludEnfermedad` int(11) DEFAULT NULL,
   PRIMARY KEY (`idSiniestros`),
-  KEY `fk_estadosSaludEnfermedad_idx` (`id_estadoSaludEnfermedad`),
-  CONSTRAINT `fk_estadosSaludEnfermedad` FOREIGN KEY (`id_estadoSaludEnfermedad`) REFERENCES `EstadosSaludEnfermedad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_estadosSaludEnfermedad_idx` (`id_estadoSaludEnfermedad`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Siniestros`
+-- Dumping data for table `Siniestro`
 --
 
-LOCK TABLES `Siniestros` WRITE;
-/*!40000 ALTER TABLE `Siniestros` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Siniestros` ENABLE KEYS */;
+LOCK TABLES `Siniestro` WRITE;
+/*!40000 ALTER TABLE `Siniestro` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Siniestro` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `TiposEmpresas`
+-- Table structure for table `TipoEmpresa`
 --
 
-DROP TABLE IF EXISTS `TiposEmpresas`;
+DROP TABLE IF EXISTS `TipoEmpresa`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `TiposEmpresas` (
+CREATE TABLE `TipoEmpresa` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(128) NOT NULL,
   `descripcion` varchar(256) NOT NULL,
@@ -580,13 +568,13 @@ CREATE TABLE `TiposEmpresas` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `TiposEmpresas`
+-- Dumping data for table `TipoEmpresa`
 --
 
-LOCK TABLES `TiposEmpresas` WRITE;
-/*!40000 ALTER TABLE `TiposEmpresas` DISABLE KEYS */;
-INSERT INTO `TiposEmpresas` VALUES (1,'Salud','Empresa dedicada a la salud ocupacional'),(2,'Metalúrgica','Empresa dedicada a la fabricación de elementos utilizando distintos tipos de metales. Fabricación de puertas, ventanas, abeturas en general y tornería de piezas metálicas para distintos tipos de cosas.'),(4,'De servicios','Empresa dedicada a brindas servicios de internet'),(5,'Software Factory','Empresa dedicada al desarrollo de software'),(7,'Indumentaria','Empresa dedicada a la venta de ropa'),(9,'Farmaceutica','Empresa dedicada a la venta de medicamentos'),(13,'Recreativa','Empresa dedicada a la recreación'),(14,'Farmacéutica','Empresa dedicada a la venta de fármacos'),(15,'Multinacional','Empresa que vende de todo en todos lados.');
-/*!40000 ALTER TABLE `TiposEmpresas` ENABLE KEYS */;
+LOCK TABLES `TipoEmpresa` WRITE;
+/*!40000 ALTER TABLE `TipoEmpresa` DISABLE KEYS */;
+INSERT INTO `TipoEmpresa` VALUES (1,'Salud','Empresa dedicada a la salud ocupacional'),(2,'Metalúrgica','Empresa dedicada a la fabricación de elementos utilizando distintos tipos de metales. Fabricación de puertas, ventanas, abeturas en general y tornería de piezas metálicas para distintos tipos de cosas.'),(4,'De servicios','Empresa dedicada a brindas servicios de internet'),(5,'Software Factory','Empresa dedicada al desarrollo de software'),(7,'Indumentaria','Empresa dedicada a la venta de ropa'),(9,'Farmaceutica','Empresa dedicada a la venta de medicamentos'),(13,'Recreativa','Empresa dedicada a la recreación'),(14,'Farmacéutica','Empresa dedicada a la venta de fármacos'),(15,'Multinacional','Empresa que vende de todo en todos lados.');
+/*!40000 ALTER TABLE `TipoEmpresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -606,8 +594,7 @@ CREATE TABLE `User` (
   `idEmpresa` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `sso_id` (`sso_id`),
-  KEY `fk_User_Empresas1_idx` (`idEmpresa`),
-  CONSTRAINT `fk_User_Empresas1` FOREIGN KEY (`idEmpresa`) REFERENCES `Empresas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_User_Empresas1_idx` (`idEmpresa`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -682,4 +669,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-13 22:09:06
+-- Dump completed on 2017-07-23 12:24:09

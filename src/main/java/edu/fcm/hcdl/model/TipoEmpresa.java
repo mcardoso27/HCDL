@@ -6,9 +6,7 @@
 package edu.fcm.hcdl.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,25 +14,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author martin
  */
 @Entity
-@Table(name = "Provincias")
+@Table(name = "TipoEmpresa")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Provincias.findAll", query = "SELECT p FROM Provincias p")
-    , @NamedQuery(name = "Provincias.findById", query = "SELECT p FROM Provincias p WHERE p.id = :id")
-    , @NamedQuery(name = "Provincias.findByNombre", query = "SELECT p FROM Provincias p WHERE p.nombre = :nombre")})
-public class Provincias implements Serializable {
+    @NamedQuery(name = "TipoEmpresa.findAll", query = "SELECT t FROM TipoEmpresa t")
+    , @NamedQuery(name = "TipoEmpresa.findById", query = "SELECT t FROM TipoEmpresa t WHERE t.id = :id")
+    , @NamedQuery(name = "TipoEmpresa.findByNombre", query = "SELECT t FROM TipoEmpresa t WHERE t.nombre = :nombre")
+    , @NamedQuery(name = "TipoEmpresa.findByDescripcion", query = "SELECT t FROM TipoEmpresa t WHERE t.descripcion = :descripcion")})
+public class TipoEmpresa implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,22 +41,26 @@ public class Provincias implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 256)
+    @Size(min = 1, max = 128)
     @Column(name = "nombre")
     private String nombre;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProvincia")
-    private List<Localidades> localidadesList;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 256)
+    @Column(name = "descripcion")
+    private String descripcion;
 
-    public Provincias() {
+    public TipoEmpresa() {
     }
 
-    public Provincias(Integer id) {
+    public TipoEmpresa(Integer id) {
         this.id = id;
     }
 
-    public Provincias(Integer id, String nombre) {
+    public TipoEmpresa(Integer id, String nombre, String descripcion) {
         this.id = id;
         this.nombre = nombre;
+        this.descripcion = descripcion;
     }
 
     public Integer getId() {
@@ -78,13 +79,12 @@ public class Provincias implements Serializable {
         this.nombre = nombre;
     }
 
-    @XmlTransient
-    public List<Localidades> getLocalidadesList() {
-        return localidadesList;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setLocalidadesList(List<Localidades> localidadesList) {
-        this.localidadesList = localidadesList;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     @Override
@@ -97,10 +97,10 @@ public class Provincias implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Provincias)) {
+        if (!(object instanceof TipoEmpresa)) {
             return false;
         }
-        Provincias other = (Provincias) object;
+        TipoEmpresa other = (TipoEmpresa) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -109,7 +109,7 @@ public class Provincias implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.fcm.hcdl.model.Provincias[ id=" + id + " ]";
+        return "edu.fcm.hcdl.model.TipoEmpresa[ id=" + id + " ]";
     }
     
 }

@@ -13,8 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -29,58 +27,55 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author martin
  */
 @Entity
-@Table(name = "Accidentes")
+@Table(name = "Incidente")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Accidentes.findAll", query = "SELECT a FROM Accidentes a")
-    , @NamedQuery(name = "Accidentes.findByIdAccidentes", query = "SELECT a FROM Accidentes a WHERE a.idAccidentes = :idAccidentes")
-    , @NamedQuery(name = "Accidentes.findByDescripcion", query = "SELECT a FROM Accidentes a WHERE a.descripcion = :descripcion")
-    , @NamedQuery(name = "Accidentes.findByFechaInicio", query = "SELECT a FROM Accidentes a WHERE a.fechaInicio = :fechaInicio")
-    , @NamedQuery(name = "Accidentes.findByFechaFin", query = "SELECT a FROM Accidentes a WHERE a.fechaFin = :fechaFin")})
-public class Accidentes implements Serializable {
+    @NamedQuery(name = "Incidente.findAll", query = "SELECT i FROM Incidente i")
+    , @NamedQuery(name = "Incidente.findByIdIncidentes", query = "SELECT i FROM Incidente i WHERE i.idIncidentes = :idIncidentes")
+    , @NamedQuery(name = "Incidente.findByDescripcion", query = "SELECT i FROM Incidente i WHERE i.descripcion = :descripcion")
+    , @NamedQuery(name = "Incidente.findByFechaInicio", query = "SELECT i FROM Incidente i WHERE i.fechaInicio = :fechaInicio")
+    , @NamedQuery(name = "Incidente.findByFechaFin", query = "SELECT i FROM Incidente i WHERE i.fechaFin = :fechaFin")
+    , @NamedQuery(name = "Incidente.findByFkestadosSaludEnfermedad", query = "SELECT i FROM Incidente i WHERE i.fkestadosSaludEnfermedad = :fkestadosSaludEnfermedad")})
+public class Incidente implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idAccidentes")
-    private Integer idAccidentes;
+    @Column(name = "idIncidentes")
+    private Integer idIncidentes;
     @Size(max = 400)
     @Column(name = "descripcion")
     private String descripcion;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "fecha_inicio")
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "fecha_fin")
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
-    @JoinColumn(name = "id_estadoSaludEnfermedad", referencedColumnName = "id")
-    @ManyToOne
-    private EstadosSaludEnfermedad idestadoSaludEnfermedad;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fk_estadosSaludEnfermedad")
+    private int fkestadosSaludEnfermedad;
 
-    public Accidentes() {
+    public Incidente() {
     }
 
-    public Accidentes(Integer idAccidentes) {
-        this.idAccidentes = idAccidentes;
+    public Incidente(Integer idIncidentes) {
+        this.idIncidentes = idIncidentes;
     }
 
-    public Accidentes(Integer idAccidentes, Date fechaInicio, Date fechaFin) {
-        this.idAccidentes = idAccidentes;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
+    public Incidente(Integer idIncidentes, int fkestadosSaludEnfermedad) {
+        this.idIncidentes = idIncidentes;
+        this.fkestadosSaludEnfermedad = fkestadosSaludEnfermedad;
     }
 
-    public Integer getIdAccidentes() {
-        return idAccidentes;
+    public Integer getIdIncidentes() {
+        return idIncidentes;
     }
 
-    public void setIdAccidentes(Integer idAccidentes) {
-        this.idAccidentes = idAccidentes;
+    public void setIdIncidentes(Integer idIncidentes) {
+        this.idIncidentes = idIncidentes;
     }
 
     public String getDescripcion() {
@@ -107,29 +102,29 @@ public class Accidentes implements Serializable {
         this.fechaFin = fechaFin;
     }
 
-    public EstadosSaludEnfermedad getIdestadoSaludEnfermedad() {
-        return idestadoSaludEnfermedad;
+    public int getFkestadosSaludEnfermedad() {
+        return fkestadosSaludEnfermedad;
     }
 
-    public void setIdestadoSaludEnfermedad(EstadosSaludEnfermedad idestadoSaludEnfermedad) {
-        this.idestadoSaludEnfermedad = idestadoSaludEnfermedad;
+    public void setFkestadosSaludEnfermedad(int fkestadosSaludEnfermedad) {
+        this.fkestadosSaludEnfermedad = fkestadosSaludEnfermedad;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idAccidentes != null ? idAccidentes.hashCode() : 0);
+        hash += (idIncidentes != null ? idIncidentes.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Accidentes)) {
+        if (!(object instanceof Incidente)) {
             return false;
         }
-        Accidentes other = (Accidentes) object;
-        if ((this.idAccidentes == null && other.idAccidentes != null) || (this.idAccidentes != null && !this.idAccidentes.equals(other.idAccidentes))) {
+        Incidente other = (Incidente) object;
+        if ((this.idIncidentes == null && other.idIncidentes != null) || (this.idIncidentes != null && !this.idIncidentes.equals(other.idIncidentes))) {
             return false;
         }
         return true;
@@ -137,7 +132,7 @@ public class Accidentes implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.fcm.hcdl.model.Accidentes[ idAccidentes=" + idAccidentes + " ]";
+        return "edu.fcm.hcdl.model.Incidente[ idIncidentes=" + idIncidentes + " ]";
     }
     
 }

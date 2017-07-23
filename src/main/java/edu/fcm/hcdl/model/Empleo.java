@@ -8,18 +8,14 @@ package edu.fcm.hcdl.model;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,16 +28,26 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author martin
  */
 @Entity
-@Table(name = "Empleos")
+@Table(name = "Empleo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Empleos.findAll", query = "SELECT e FROM Empleos e")
-    , @NamedQuery(name = "Empleos.findById", query = "SELECT e FROM Empleos e WHERE e.id = :id")
-    , @NamedQuery(name = "Empleos.findByFechaInicio", query = "SELECT e FROM Empleos e WHERE e.fechaInicio = :fechaInicio")
-    , @NamedQuery(name = "Empleos.findByFechaFin", query = "SELECT e FROM Empleos e WHERE e.fechaFin = :fechaFin")})
-public class Empleos implements Serializable {
+    @NamedQuery(name = "Empleo.findAll", query = "SELECT e FROM Empleo e")
+    , @NamedQuery(name = "Empleo.findByIdEmpresa", query = "SELECT e FROM Empleo e WHERE e.idEmpresa = :idEmpresa")
+    , @NamedQuery(name = "Empleo.findByIdEmpleado", query = "SELECT e FROM Empleo e WHERE e.idEmpleado = :idEmpleado")
+    , @NamedQuery(name = "Empleo.findById", query = "SELECT e FROM Empleo e WHERE e.id = :id")
+    , @NamedQuery(name = "Empleo.findByFechaInicio", query = "SELECT e FROM Empleo e WHERE e.fechaInicio = :fechaInicio")
+    , @NamedQuery(name = "Empleo.findByFechaFin", query = "SELECT e FROM Empleo e WHERE e.fechaFin = :fechaFin")})
+public class Empleo implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_empresa")
+    private int idEmpresa;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_empleado")
+    private int idEmpleado;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -61,30 +67,36 @@ public class Empleos implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(name = "cargo")
     private String cargo;
-    @JoinColumn(name = "id_empresa", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Empresas idEmpresa;
-    @JoinColumn(name = "id_empleado", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Personas idEmpleado;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "idEmpleo")
-    private AccionesPreventivas accionesPreventivas;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "idEmpleo")
-    private PuestosTrabajos puestosTrabajos;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "idEmpleo")
-    private SectoresTrabajos sectoresTrabajos;
 
-    public Empleos() {
+    public Empleo() {
     }
 
-    public Empleos(Integer id) {
+    public Empleo(Integer id) {
         this.id = id;
     }
 
-    public Empleos(Integer id, Date fechaInicio, String cargo) {
+    public Empleo(Integer id, int idEmpresa, int idEmpleado, Date fechaInicio, String cargo) {
         this.id = id;
+        this.idEmpresa = idEmpresa;
+        this.idEmpleado = idEmpleado;
         this.fechaInicio = fechaInicio;
         this.cargo = cargo;
+    }
+
+    public int getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(int idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+
+    public int getIdEmpleado() {
+        return idEmpleado;
+    }
+
+    public void setIdEmpleado(int idEmpleado) {
+        this.idEmpleado = idEmpleado;
     }
 
     public Integer getId() {
@@ -119,46 +131,6 @@ public class Empleos implements Serializable {
         this.cargo = cargo;
     }
 
-    public Empresas getIdEmpresa() {
-        return idEmpresa;
-    }
-
-    public void setIdEmpresa(Empresas idEmpresa) {
-        this.idEmpresa = idEmpresa;
-    }
-
-    public Personas getIdEmpleado() {
-        return idEmpleado;
-    }
-
-    public void setIdEmpleado(Personas idEmpleado) {
-        this.idEmpleado = idEmpleado;
-    }
-
-    public AccionesPreventivas getAccionesPreventivas() {
-        return accionesPreventivas;
-    }
-
-    public void setAccionesPreventivas(AccionesPreventivas accionesPreventivas) {
-        this.accionesPreventivas = accionesPreventivas;
-    }
-
-    public PuestosTrabajos getPuestosTrabajos() {
-        return puestosTrabajos;
-    }
-
-    public void setPuestosTrabajos(PuestosTrabajos puestosTrabajos) {
-        this.puestosTrabajos = puestosTrabajos;
-    }
-
-    public SectoresTrabajos getSectoresTrabajos() {
-        return sectoresTrabajos;
-    }
-
-    public void setSectoresTrabajos(SectoresTrabajos sectoresTrabajos) {
-        this.sectoresTrabajos = sectoresTrabajos;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -169,10 +141,10 @@ public class Empleos implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Empleos)) {
+        if (!(object instanceof Empleo)) {
             return false;
         }
-        Empleos other = (Empleos) object;
+        Empleo other = (Empleo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -181,7 +153,7 @@ public class Empleos implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.fcm.hcdl.model.Empleos[ id=" + id + " ]";
+        return "edu.fcm.hcdl.model.Empleo[ id=" + id + " ]";
     }
     
 }

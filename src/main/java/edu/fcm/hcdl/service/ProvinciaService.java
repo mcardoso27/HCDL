@@ -4,11 +4,11 @@
  */
 package edu.fcm.hcdl.service;
 
-import edu.fcm.hcdl.model.Provincias;
+import edu.fcm.hcdl.model.Provincia;
 import java.util.List;
 
 public interface ProvinciaService {
     
-    public List<Provincias> findAllProvincias();
+    public List<Provincia> findAllProvincias();
     
 }

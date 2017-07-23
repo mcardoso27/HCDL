@@ -6,44 +6,43 @@
 package edu.fcm.hcdl.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author martin
  */
 @Entity
-@Table(name = "Localidades")
+@Table(name = "Localidad")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Localidades.findAll", query = "SELECT l FROM Localidades l")
-    , @NamedQuery(name = "Localidades.findByCodigopostal", query = "SELECT l FROM Localidades l WHERE l.codigopostal = :codigopostal")
-    , @NamedQuery(name = "Localidades.findByNombre", query = "SELECT l FROM Localidades l WHERE l.nombre = :nombre")
-    , @NamedQuery(name = "Localidades.findByIdLocalidad", query = "SELECT l FROM Localidades l WHERE l.idLocalidad = :idLocalidad")})
-public class Localidades implements Serializable {
+    @NamedQuery(name = "Localidad.findAll", query = "SELECT l FROM Localidad l")
+    , @NamedQuery(name = "Localidad.findByCodigopostal", query = "SELECT l FROM Localidad l WHERE l.codigopostal = :codigopostal")
+    , @NamedQuery(name = "Localidad.findByIdProvincia", query = "SELECT l FROM Localidad l WHERE l.idProvincia = :idProvincia")
+    , @NamedQuery(name = "Localidad.findByNombre", query = "SELECT l FROM Localidad l WHERE l.nombre = :nombre")
+    , @NamedQuery(name = "Localidad.findByIdLocalidad", query = "SELECT l FROM Localidad l WHERE l.idLocalidad = :idLocalidad")})
+public class Localidad implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
     @Column(name = "codigopostal")
     private int codigopostal;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_provincia")
+    private int idProvincia;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 256)
@@ -54,24 +53,18 @@ public class Localidades implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_localidad")
     private Integer idLocalidad;
-    @OneToMany(mappedBy = "idLocalidad")
-    private List<Personas> personasList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idLocalidad")
-    private List<Empresas> empresasList;
-    @JoinColumn(name = "id_provincia", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Provincias idProvincia;
 
-    public Localidades() {
+    public Localidad() {
     }
 
-    public Localidades(Integer idLocalidad) {
+    public Localidad(Integer idLocalidad) {
         this.idLocalidad = idLocalidad;
     }
 
-    public Localidades(Integer idLocalidad, int codigopostal, String nombre) {
+    public Localidad(Integer idLocalidad, int codigopostal, int idProvincia, String nombre) {
         this.idLocalidad = idLocalidad;
         this.codigopostal = codigopostal;
+        this.idProvincia = idProvincia;
         this.nombre = nombre;
     }
 
@@ -81,6 +74,14 @@ public class Localidades implements Serializable {
 
     public void setCodigopostal(int codigopostal) {
         this.codigopostal = codigopostal;
+    }
+
+    public int getIdProvincia() {
+        return idProvincia;
+    }
+
+    public void setIdProvincia(int idProvincia) {
+        this.idProvincia = idProvincia;
     }
 
     public String getNombre() {
@@ -99,32 +100,6 @@ public class Localidades implements Serializable {
         this.idLocalidad = idLocalidad;
     }
 
-    @XmlTransient
-    public List<Personas> getPersonasList() {
-        return personasList;
-    }
-
-    public void setPersonasList(List<Personas> personasList) {
-        this.personasList = personasList;
-    }
-
-    @XmlTransient
-    public List<Empresas> getEmpresasList() {
-        return empresasList;
-    }
-
-    public void setEmpresasList(List<Empresas> empresasList) {
-        this.empresasList = empresasList;
-    }
-
-    public Provincias getIdProvincia() {
-        return idProvincia;
-    }
-
-    public void setIdProvincia(Provincias idProvincia) {
-        this.idProvincia = idProvincia;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -135,10 +110,10 @@ public class Localidades implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Localidades)) {
+        if (!(object instanceof Localidad)) {
             return false;
         }
-        Localidades other = (Localidades) object;
+        Localidad other = (Localidad) object;
         if ((this.idLocalidad == null && other.idLocalidad != null) || (this.idLocalidad != null && !this.idLocalidad.equals(other.idLocalidad))) {
             return false;
         }
@@ -147,7 +122,7 @@ public class Localidades implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.fcm.hcdl.model.Localidades[ idLocalidad=" + idLocalidad + " ]";
+        return "edu.fcm.hcdl.model.Localidad[ idLocalidad=" + idLocalidad + " ]";
     }
     
 }

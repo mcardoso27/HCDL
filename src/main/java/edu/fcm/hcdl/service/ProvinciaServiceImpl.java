@@ -5,7 +5,7 @@
 package edu.fcm.hcdl.service;
 
 import edu.fcm.hcdl.dao.ProvinciaDao;
-import edu.fcm.hcdl.model.Provincias;
+import edu.fcm.hcdl.model.Provincia;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class ProvinciaServiceImpl implements ProvinciaService{
     private ProvinciaDao dao;
     
     @Override
-    public List<Provincias> findAllProvincias() {
+    public List<Provincia> findAllProvincias() {
         return dao.getAll();
     }
 

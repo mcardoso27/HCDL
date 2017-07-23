@@ -12,10 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,16 +24,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author martin
  */
 @Entity
-@Table(name = "AccionesPreventivas")
+@Table(name = "AccionPreventiva")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "AccionesPreventivas.findAll", query = "SELECT a FROM AccionesPreventivas a")
-    , @NamedQuery(name = "AccionesPreventivas.findById", query = "SELECT a FROM AccionesPreventivas a WHERE a.id = :id")
-    , @NamedQuery(name = "AccionesPreventivas.findByRecibioCapacitacion", query = "SELECT a FROM AccionesPreventivas a WHERE a.recibioCapacitacion = :recibioCapacitacion")
-    , @NamedQuery(name = "AccionesPreventivas.findByRecibioCapacitacionART", query = "SELECT a FROM AccionesPreventivas a WHERE a.recibioCapacitacionART = :recibioCapacitacionART")
-    , @NamedQuery(name = "AccionesPreventivas.findByElementosOtorgados", query = "SELECT a FROM AccionesPreventivas a WHERE a.elementosOtorgados = :elementosOtorgados")
-    , @NamedQuery(name = "AccionesPreventivas.findByResposableSegTrabajo", query = "SELECT a FROM AccionesPreventivas a WHERE a.resposableSegTrabajo = :resposableSegTrabajo")})
-public class AccionesPreventivas implements Serializable {
+    @NamedQuery(name = "AccionPreventiva.findAll", query = "SELECT a FROM AccionPreventiva a")
+    , @NamedQuery(name = "AccionPreventiva.findById", query = "SELECT a FROM AccionPreventiva a WHERE a.id = :id")
+    , @NamedQuery(name = "AccionPreventiva.findByIdEmpleo", query = "SELECT a FROM AccionPreventiva a WHERE a.idEmpleo = :idEmpleo")
+    , @NamedQuery(name = "AccionPreventiva.findByRecibioCapacitacion", query = "SELECT a FROM AccionPreventiva a WHERE a.recibioCapacitacion = :recibioCapacitacion")
+    , @NamedQuery(name = "AccionPreventiva.findByRecibioCapacitacionART", query = "SELECT a FROM AccionPreventiva a WHERE a.recibioCapacitacionART = :recibioCapacitacionART")
+    , @NamedQuery(name = "AccionPreventiva.findByElementosOtorgados", query = "SELECT a FROM AccionPreventiva a WHERE a.elementosOtorgados = :elementosOtorgados")
+    , @NamedQuery(name = "AccionPreventiva.findByResposableSegTrabajo", query = "SELECT a FROM AccionPreventiva a WHERE a.resposableSegTrabajo = :resposableSegTrabajo")})
+public class AccionPreventiva implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,6 +42,10 @@ public class AccionesPreventivas implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_empleo")
+    private int idEmpleo;
     @Basic(optional = false)
     @NotNull
     @Column(name = "recibioCapacitacion")
@@ -61,19 +64,17 @@ public class AccionesPreventivas implements Serializable {
     @Size(min = 1, max = 21)
     @Column(name = "ResposableSegTrabajo")
     private String resposableSegTrabajo;
-    @JoinColumn(name = "id_empleo", referencedColumnName = "id")
-    @OneToOne(optional = false)
-    private Empleos idEmpleo;
 
-    public AccionesPreventivas() {
+    public AccionPreventiva() {
     }
 
-    public AccionesPreventivas(Integer id) {
+    public AccionPreventiva(Integer id) {
         this.id = id;
     }
 
-    public AccionesPreventivas(Integer id, boolean recibioCapacitacion, boolean recibioCapacitacionART, String elementosOtorgados, String resposableSegTrabajo) {
+    public AccionPreventiva(Integer id, int idEmpleo, boolean recibioCapacitacion, boolean recibioCapacitacionART, String elementosOtorgados, String resposableSegTrabajo) {
         this.id = id;
+        this.idEmpleo = idEmpleo;
         this.recibioCapacitacion = recibioCapacitacion;
         this.recibioCapacitacionART = recibioCapacitacionART;
         this.elementosOtorgados = elementosOtorgados;
@@ -86,6 +87,14 @@ public class AccionesPreventivas implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public int getIdEmpleo() {
+        return idEmpleo;
+    }
+
+    public void setIdEmpleo(int idEmpleo) {
+        this.idEmpleo = idEmpleo;
     }
 
     public boolean getRecibioCapacitacion() {
@@ -120,14 +129,6 @@ public class AccionesPreventivas implements Serializable {
         this.resposableSegTrabajo = resposableSegTrabajo;
     }
 
-    public Empleos getIdEmpleo() {
-        return idEmpleo;
-    }
-
-    public void setIdEmpleo(Empleos idEmpleo) {
-        this.idEmpleo = idEmpleo;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -138,10 +139,10 @@ public class AccionesPreventivas implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof AccionesPreventivas)) {
+        if (!(object instanceof AccionPreventiva)) {
             return false;
         }
-        AccionesPreventivas other = (AccionesPreventivas) object;
+        AccionPreventiva other = (AccionPreventiva) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -150,7 +151,7 @@ public class AccionesPreventivas implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.fcm.hcdl.model.AccionesPreventivas[ id=" + id + " ]";
+        return "edu.fcm.hcdl.model.AccionPreventiva[ id=" + id + " ]";
     }
     
 }

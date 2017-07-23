@@ -10,10 +10,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,66 +22,67 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author martin
  */
 @Entity
-@Table(name = "PuestosTrabajos")
+@Table(name = "PuestoTrabajo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PuestosTrabajos.findAll", query = "SELECT p FROM PuestosTrabajos p")
-    , @NamedQuery(name = "PuestosTrabajos.findById", query = "SELECT p FROM PuestosTrabajos p WHERE p.id = :id")
-    , @NamedQuery(name = "PuestosTrabajos.findByRfCargaTermica", query = "SELECT p FROM PuestosTrabajos p WHERE p.rfCargaTermica = :rfCargaTermica")
-    , @NamedQuery(name = "PuestosTrabajos.findByRfHumedad", query = "SELECT p FROM PuestosTrabajos p WHERE p.rfHumedad = :rfHumedad")
-    , @NamedQuery(name = "PuestosTrabajos.findByRfRuidos", query = "SELECT p FROM PuestosTrabajos p WHERE p.rfRuidos = :rfRuidos")
-    , @NamedQuery(name = "PuestosTrabajos.findByRfVibraciones", query = "SELECT p FROM PuestosTrabajos p WHERE p.rfVibraciones = :rfVibraciones")
-    , @NamedQuery(name = "PuestosTrabajos.findByRfGases", query = "SELECT p FROM PuestosTrabajos p WHERE p.rfGases = :rfGases")
-    , @NamedQuery(name = "PuestosTrabajos.findByRfPolvos", query = "SELECT p FROM PuestosTrabajos p WHERE p.rfPolvos = :rfPolvos")
-    , @NamedQuery(name = "PuestosTrabajos.findByRfLiquidos", query = "SELECT p FROM PuestosTrabajos p WHERE p.rfLiquidos = :rfLiquidos")
-    , @NamedQuery(name = "PuestosTrabajos.findByRfVentilacion", query = "SELECT p FROM PuestosTrabajos p WHERE p.rfVentilacion = :rfVentilacion")
-    , @NamedQuery(name = "PuestosTrabajos.findByRfIluminacion", query = "SELECT p FROM PuestosTrabajos p WHERE p.rfIluminacion = :rfIluminacion")
-    , @NamedQuery(name = "PuestosTrabajos.findByRiesgosQuimicos", query = "SELECT p FROM PuestosTrabajos p WHERE p.riesgosQuimicos = :riesgosQuimicos")
-    , @NamedQuery(name = "PuestosTrabajos.findByRiesgosBiologicos", query = "SELECT p FROM PuestosTrabajos p WHERE p.riesgosBiologicos = :riesgosBiologicos")
-    , @NamedQuery(name = "PuestosTrabajos.findByPymEsfuerzoFisico", query = "SELECT p FROM PuestosTrabajos p WHERE p.pymEsfuerzoFisico = :pymEsfuerzoFisico")
-    , @NamedQuery(name = "PuestosTrabajos.findByPymEsfuerzoVoz", query = "SELECT p FROM PuestosTrabajos p WHERE p.pymEsfuerzoVoz = :pymEsfuerzoVoz")
-    , @NamedQuery(name = "PuestosTrabajos.findByPymEstardePie", query = "SELECT p FROM PuestosTrabajos p WHERE p.pymEstardePie = :pymEstardePie")
-    , @NamedQuery(name = "PuestosTrabajos.findByPymSentadoIncomodo", query = "SELECT p FROM PuestosTrabajos p WHERE p.pymSentadoIncomodo = :pymSentadoIncomodo")
-    , @NamedQuery(name = "PuestosTrabajos.findByPymPosicionIncomoda", query = "SELECT p FROM PuestosTrabajos p WHERE p.pymPosicionIncomoda = :pymPosicionIncomoda")
-    , @NamedQuery(name = "PuestosTrabajos.findByPymMovRepetitivosCuerpo", query = "SELECT p FROM PuestosTrabajos p WHERE p.pymMovRepetitivosCuerpo = :pymMovRepetitivosCuerpo")
-    , @NamedQuery(name = "PuestosTrabajos.findByPymMovRepetitivosBrazos", query = "SELECT p FROM PuestosTrabajos p WHERE p.pymMovRepetitivosBrazos = :pymMovRepetitivosBrazos")
-    , @NamedQuery(name = "PuestosTrabajos.findByPymMovRepetitivosPiernas", query = "SELECT p FROM PuestosTrabajos p WHERE p.pymMovRepetitivosPiernas = :pymMovRepetitivosPiernas")
-    , @NamedQuery(name = "PuestosTrabajos.findByPymTraslados", query = "SELECT p FROM PuestosTrabajos p WHERE p.pymTraslados = :pymTraslados")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsAtencionPublico", query = "SELECT p FROM PuestosTrabajos p WHERE p.psAtencionPublico = :psAtencionPublico")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsTareaOtrosTrabajadores", query = "SELECT p FROM PuestosTrabajos p WHERE p.psTareaOtrosTrabajadores = :psTareaOtrosTrabajadores")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsTurnosFijos", query = "SELECT p FROM PuestosTrabajos p WHERE p.psTurnosFijos = :psTurnosFijos")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsTurnosRotativos", query = "SELECT p FROM PuestosTrabajos p WHERE p.psTurnosRotativos = :psTurnosRotativos")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsDescansoDuranteTrabajo", query = "SELECT p FROM PuestosTrabajos p WHERE p.psDescansoDuranteTrabajo = :psDescansoDuranteTrabajo")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsTrabajaDomingos", query = "SELECT p FROM PuestosTrabajos p WHERE p.psTrabajaDomingos = :psTrabajaDomingos")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsTrabajaFeriados", query = "SELECT p FROM PuestosTrabajos p WHERE p.psTrabajaFeriados = :psTrabajaFeriados")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsHaySupervisor", query = "SELECT p FROM PuestosTrabajos p WHERE p.psHaySupervisor = :psHaySupervisor")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsTrabajoAburrido", query = "SELECT p FROM PuestosTrabajos p WHERE p.psTrabajoAburrido = :psTrabajoAburrido")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsSienteMalTrabajar", query = "SELECT p FROM PuestosTrabajos p WHERE p.psSienteMalTrabajar = :psSienteMalTrabajar")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsIniciativasDesempe\u00f1oTrabajo", query = "SELECT p FROM PuestosTrabajos p WHERE p.psIniciativasDesempe\u00f1oTrabajo = :psIniciativasDesempe\u00f1oTrabajo")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsParteDeLaEmpresa", query = "SELECT p FROM PuestosTrabajos p WHERE p.psParteDeLaEmpresa = :psParteDeLaEmpresa")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsAgotado", query = "SELECT p FROM PuestosTrabajos p WHERE p.psAgotado = :psAgotado")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsAgresivo", query = "SELECT p FROM PuestosTrabajos p WHERE p.psAgresivo = :psAgresivo")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsTensionado", query = "SELECT p FROM PuestosTrabajos p WHERE p.psTensionado = :psTensionado")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsSatisfecho", query = "SELECT p FROM PuestosTrabajos p WHERE p.psSatisfecho = :psSatisfecho")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsNervioso", query = "SELECT p FROM PuestosTrabajos p WHERE p.psNervioso = :psNervioso")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsContento", query = "SELECT p FROM PuestosTrabajos p WHERE p.psContento = :psContento")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsIndiferente", query = "SELECT p FROM PuestosTrabajos p WHERE p.psIndiferente = :psIndiferente")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsSuperioresExigenDemas", query = "SELECT p FROM PuestosTrabajos p WHERE p.psSuperioresExigenDemas = :psSuperioresExigenDemas")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsCompanierosAgreden", query = "SELECT p FROM PuestosTrabajos p WHERE p.psCompanierosAgreden = :psCompanierosAgreden")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsTareasGranResponsabilidad", query = "SELECT p FROM PuestosTrabajos p WHERE p.psTareasGranResponsabilidad = :psTareasGranResponsabilidad")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsNoReconocimientoSuperiores", query = "SELECT p FROM PuestosTrabajos p WHERE p.psNoReconocimientoSuperiores = :psNoReconocimientoSuperiores")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsNoReconocimientoEmpresa", query = "SELECT p FROM PuestosTrabajos p WHERE p.psNoReconocimientoEmpresa = :psNoReconocimientoEmpresa")
-    , @NamedQuery(name = "PuestosTrabajos.findByPsNoReconocimientoCompanieros", query = "SELECT p FROM PuestosTrabajos p WHERE p.psNoReconocimientoCompanieros = :psNoReconocimientoCompanieros")
-    , @NamedQuery(name = "PuestosTrabajos.findByAsReconocimientoSocial", query = "SELECT p FROM PuestosTrabajos p WHERE p.asReconocimientoSocial = :asReconocimientoSocial")
-    , @NamedQuery(name = "PuestosTrabajos.findByAsImportanciaSocial", query = "SELECT p FROM PuestosTrabajos p WHERE p.asImportanciaSocial = :asImportanciaSocial")
-    , @NamedQuery(name = "PuestosTrabajos.findByAsSueldoInsuficiente", query = "SELECT p FROM PuestosTrabajos p WHERE p.asSueldoInsuficiente = :asSueldoInsuficiente")
-    , @NamedQuery(name = "PuestosTrabajos.findByAsLeeLibros", query = "SELECT p FROM PuestosTrabajos p WHERE p.asLeeLibros = :asLeeLibros")
-    , @NamedQuery(name = "PuestosTrabajos.findByAsSinFinLucro", query = "SELECT p FROM PuestosTrabajos p WHERE p.asSinFinLucro = :asSinFinLucro")
-    , @NamedQuery(name = "PuestosTrabajos.findByAsVerTelevision", query = "SELECT p FROM PuestosTrabajos p WHERE p.asVerTelevision = :asVerTelevision")
-    , @NamedQuery(name = "PuestosTrabajos.findByAsAmadeCasa", query = "SELECT p FROM PuestosTrabajos p WHERE p.asAmadeCasa = :asAmadeCasa")
-    , @NamedQuery(name = "PuestosTrabajos.findByAsPracticaDeportes", query = "SELECT p FROM PuestosTrabajos p WHERE p.asPracticaDeportes = :asPracticaDeportes")
-    , @NamedQuery(name = "PuestosTrabajos.findByAsAltoRiesgoLaboral", query = "SELECT p FROM PuestosTrabajos p WHERE p.asAltoRiesgoLaboral = :asAltoRiesgoLaboral")})
-public class PuestosTrabajos implements Serializable {
+    @NamedQuery(name = "PuestoTrabajo.findAll", query = "SELECT p FROM PuestoTrabajo p")
+    , @NamedQuery(name = "PuestoTrabajo.findById", query = "SELECT p FROM PuestoTrabajo p WHERE p.id = :id")
+    , @NamedQuery(name = "PuestoTrabajo.findByIdEmpleo", query = "SELECT p FROM PuestoTrabajo p WHERE p.idEmpleo = :idEmpleo")
+    , @NamedQuery(name = "PuestoTrabajo.findByRfCargaTermica", query = "SELECT p FROM PuestoTrabajo p WHERE p.rfCargaTermica = :rfCargaTermica")
+    , @NamedQuery(name = "PuestoTrabajo.findByRfHumedad", query = "SELECT p FROM PuestoTrabajo p WHERE p.rfHumedad = :rfHumedad")
+    , @NamedQuery(name = "PuestoTrabajo.findByRfRuidos", query = "SELECT p FROM PuestoTrabajo p WHERE p.rfRuidos = :rfRuidos")
+    , @NamedQuery(name = "PuestoTrabajo.findByRfVibraciones", query = "SELECT p FROM PuestoTrabajo p WHERE p.rfVibraciones = :rfVibraciones")
+    , @NamedQuery(name = "PuestoTrabajo.findByRfGases", query = "SELECT p FROM PuestoTrabajo p WHERE p.rfGases = :rfGases")
+    , @NamedQuery(name = "PuestoTrabajo.findByRfPolvos", query = "SELECT p FROM PuestoTrabajo p WHERE p.rfPolvos = :rfPolvos")
+    , @NamedQuery(name = "PuestoTrabajo.findByRfLiquidos", query = "SELECT p FROM PuestoTrabajo p WHERE p.rfLiquidos = :rfLiquidos")
+    , @NamedQuery(name = "PuestoTrabajo.findByRfVentilacion", query = "SELECT p FROM PuestoTrabajo p WHERE p.rfVentilacion = :rfVentilacion")
+    , @NamedQuery(name = "PuestoTrabajo.findByRfIluminacion", query = "SELECT p FROM PuestoTrabajo p WHERE p.rfIluminacion = :rfIluminacion")
+    , @NamedQuery(name = "PuestoTrabajo.findByRiesgosQuimicos", query = "SELECT p FROM PuestoTrabajo p WHERE p.riesgosQuimicos = :riesgosQuimicos")
+    , @NamedQuery(name = "PuestoTrabajo.findByRiesgosBiologicos", query = "SELECT p FROM PuestoTrabajo p WHERE p.riesgosBiologicos = :riesgosBiologicos")
+    , @NamedQuery(name = "PuestoTrabajo.findByPymEsfuerzoFisico", query = "SELECT p FROM PuestoTrabajo p WHERE p.pymEsfuerzoFisico = :pymEsfuerzoFisico")
+    , @NamedQuery(name = "PuestoTrabajo.findByPymEsfuerzoVoz", query = "SELECT p FROM PuestoTrabajo p WHERE p.pymEsfuerzoVoz = :pymEsfuerzoVoz")
+    , @NamedQuery(name = "PuestoTrabajo.findByPymEstardePie", query = "SELECT p FROM PuestoTrabajo p WHERE p.pymEstardePie = :pymEstardePie")
+    , @NamedQuery(name = "PuestoTrabajo.findByPymSentadoIncomodo", query = "SELECT p FROM PuestoTrabajo p WHERE p.pymSentadoIncomodo = :pymSentadoIncomodo")
+    , @NamedQuery(name = "PuestoTrabajo.findByPymPosicionIncomoda", query = "SELECT p FROM PuestoTrabajo p WHERE p.pymPosicionIncomoda = :pymPosicionIncomoda")
+    , @NamedQuery(name = "PuestoTrabajo.findByPymMovRepetitivosCuerpo", query = "SELECT p FROM PuestoTrabajo p WHERE p.pymMovRepetitivosCuerpo = :pymMovRepetitivosCuerpo")
+    , @NamedQuery(name = "PuestoTrabajo.findByPymMovRepetitivosBrazos", query = "SELECT p FROM PuestoTrabajo p WHERE p.pymMovRepetitivosBrazos = :pymMovRepetitivosBrazos")
+    , @NamedQuery(name = "PuestoTrabajo.findByPymMovRepetitivosPiernas", query = "SELECT p FROM PuestoTrabajo p WHERE p.pymMovRepetitivosPiernas = :pymMovRepetitivosPiernas")
+    , @NamedQuery(name = "PuestoTrabajo.findByPymTraslados", query = "SELECT p FROM PuestoTrabajo p WHERE p.pymTraslados = :pymTraslados")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsAtencionPublico", query = "SELECT p FROM PuestoTrabajo p WHERE p.psAtencionPublico = :psAtencionPublico")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsTareaOtrosTrabajadores", query = "SELECT p FROM PuestoTrabajo p WHERE p.psTareaOtrosTrabajadores = :psTareaOtrosTrabajadores")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsTurnosFijos", query = "SELECT p FROM PuestoTrabajo p WHERE p.psTurnosFijos = :psTurnosFijos")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsTurnosRotativos", query = "SELECT p FROM PuestoTrabajo p WHERE p.psTurnosRotativos = :psTurnosRotativos")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsDescansoDuranteTrabajo", query = "SELECT p FROM PuestoTrabajo p WHERE p.psDescansoDuranteTrabajo = :psDescansoDuranteTrabajo")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsTrabajaDomingos", query = "SELECT p FROM PuestoTrabajo p WHERE p.psTrabajaDomingos = :psTrabajaDomingos")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsTrabajaFeriados", query = "SELECT p FROM PuestoTrabajo p WHERE p.psTrabajaFeriados = :psTrabajaFeriados")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsHaySupervisor", query = "SELECT p FROM PuestoTrabajo p WHERE p.psHaySupervisor = :psHaySupervisor")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsTrabajoAburrido", query = "SELECT p FROM PuestoTrabajo p WHERE p.psTrabajoAburrido = :psTrabajoAburrido")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsSienteMalTrabajar", query = "SELECT p FROM PuestoTrabajo p WHERE p.psSienteMalTrabajar = :psSienteMalTrabajar")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsIniciativasDesempe\u00f1oTrabajo", query = "SELECT p FROM PuestoTrabajo p WHERE p.psIniciativasDesempe\u00f1oTrabajo = :psIniciativasDesempe\u00f1oTrabajo")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsParteDeLaEmpresa", query = "SELECT p FROM PuestoTrabajo p WHERE p.psParteDeLaEmpresa = :psParteDeLaEmpresa")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsAgotado", query = "SELECT p FROM PuestoTrabajo p WHERE p.psAgotado = :psAgotado")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsAgresivo", query = "SELECT p FROM PuestoTrabajo p WHERE p.psAgresivo = :psAgresivo")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsTensionado", query = "SELECT p FROM PuestoTrabajo p WHERE p.psTensionado = :psTensionado")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsSatisfecho", query = "SELECT p FROM PuestoTrabajo p WHERE p.psSatisfecho = :psSatisfecho")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsNervioso", query = "SELECT p FROM PuestoTrabajo p WHERE p.psNervioso = :psNervioso")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsContento", query = "SELECT p FROM PuestoTrabajo p WHERE p.psContento = :psContento")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsIndiferente", query = "SELECT p FROM PuestoTrabajo p WHERE p.psIndiferente = :psIndiferente")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsSuperioresExigenDemas", query = "SELECT p FROM PuestoTrabajo p WHERE p.psSuperioresExigenDemas = :psSuperioresExigenDemas")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsCompanierosAgreden", query = "SELECT p FROM PuestoTrabajo p WHERE p.psCompanierosAgreden = :psCompanierosAgreden")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsTareasGranResponsabilidad", query = "SELECT p FROM PuestoTrabajo p WHERE p.psTareasGranResponsabilidad = :psTareasGranResponsabilidad")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsNoReconocimientoSuperiores", query = "SELECT p FROM PuestoTrabajo p WHERE p.psNoReconocimientoSuperiores = :psNoReconocimientoSuperiores")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsNoReconocimientoEmpresa", query = "SELECT p FROM PuestoTrabajo p WHERE p.psNoReconocimientoEmpresa = :psNoReconocimientoEmpresa")
+    , @NamedQuery(name = "PuestoTrabajo.findByPsNoReconocimientoCompanieros", query = "SELECT p FROM PuestoTrabajo p WHERE p.psNoReconocimientoCompanieros = :psNoReconocimientoCompanieros")
+    , @NamedQuery(name = "PuestoTrabajo.findByAsReconocimientoSocial", query = "SELECT p FROM PuestoTrabajo p WHERE p.asReconocimientoSocial = :asReconocimientoSocial")
+    , @NamedQuery(name = "PuestoTrabajo.findByAsImportanciaSocial", query = "SELECT p FROM PuestoTrabajo p WHERE p.asImportanciaSocial = :asImportanciaSocial")
+    , @NamedQuery(name = "PuestoTrabajo.findByAsSueldoInsuficiente", query = "SELECT p FROM PuestoTrabajo p WHERE p.asSueldoInsuficiente = :asSueldoInsuficiente")
+    , @NamedQuery(name = "PuestoTrabajo.findByAsLeeLibros", query = "SELECT p FROM PuestoTrabajo p WHERE p.asLeeLibros = :asLeeLibros")
+    , @NamedQuery(name = "PuestoTrabajo.findByAsSinFinLucro", query = "SELECT p FROM PuestoTrabajo p WHERE p.asSinFinLucro = :asSinFinLucro")
+    , @NamedQuery(name = "PuestoTrabajo.findByAsVerTelevision", query = "SELECT p FROM PuestoTrabajo p WHERE p.asVerTelevision = :asVerTelevision")
+    , @NamedQuery(name = "PuestoTrabajo.findByAsAmadeCasa", query = "SELECT p FROM PuestoTrabajo p WHERE p.asAmadeCasa = :asAmadeCasa")
+    , @NamedQuery(name = "PuestoTrabajo.findByAsPracticaDeportes", query = "SELECT p FROM PuestoTrabajo p WHERE p.asPracticaDeportes = :asPracticaDeportes")
+    , @NamedQuery(name = "PuestoTrabajo.findByAsAltoRiesgoLaboral", query = "SELECT p FROM PuestoTrabajo p WHERE p.asAltoRiesgoLaboral = :asAltoRiesgoLaboral")})
+public class PuestoTrabajo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -91,6 +90,10 @@ public class PuestosTrabajos implements Serializable {
     @NotNull
     @Column(name = "id")
     private Integer id;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_empleo")
+    private int idEmpleo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 14)
@@ -359,19 +362,17 @@ public class PuestosTrabajos implements Serializable {
     @Size(min = 1, max = 256)
     @Column(name = "as_AltoRiesgoLaboral")
     private String asAltoRiesgoLaboral;
-    @JoinColumn(name = "id_empleo", referencedColumnName = "id")
-    @OneToOne(optional = false)
-    private Empleos idEmpleo;
 
-    public PuestosTrabajos() {
+    public PuestoTrabajo() {
     }
 
-    public PuestosTrabajos(Integer id) {
+    public PuestoTrabajo(Integer id) {
         this.id = id;
     }
 
-    public PuestosTrabajos(Integer id, String rfCargaTermica, String rfHumedad, String rfRuidos, String rfVibraciones, String rfGases, String rfPolvos, String rfLiquidos, String rfVentilacion, String rfIluminacion, String riesgosQuimicos, String riesgosBiologicos, String pymEsfuerzoFisico, String pymEsfuerzoVoz, String pymEstardePie, String pymSentadoIncomodo, String pymPosicionIncomoda, String pymMovRepetitivosCuerpo, String pymMovRepetitivosBrazos, String pymMovRepetitivosPiernas, String pymTraslados, String psAtencionPublico, String psTareaOtrosTrabajadores, String psTurnosFijos, String psTurnosRotativos, String psDescansoDuranteTrabajo, String psTrabajaDomingos, String psTrabajaFeriados, String psHaySupervisor, String psTrabajoAburrido, String psSienteMalTrabajar, String psIniciativasDesempeñoTrabajo, String psParteDeLaEmpresa, String psAgotado, String psAgresivo, String psTensionado, String psSatisfecho, String psNervioso, String psContento, String psIndiferente, String psSuperioresExigenDemas, String psCompanierosAgreden, String psTareasGranResponsabilidad, String psNoReconocimientoSuperiores, String psNoReconocimientoEmpresa, String psNoReconocimientoCompanieros, boolean asReconocimientoSocial, boolean asImportanciaSocial, String asSueldoInsuficiente, String asLeeLibros, String asSinFinLucro, String asVerTelevision, String asAmadeCasa, String asPracticaDeportes, String asAltoRiesgoLaboral) {
+    public PuestoTrabajo(Integer id, int idEmpleo, String rfCargaTermica, String rfHumedad, String rfRuidos, String rfVibraciones, String rfGases, String rfPolvos, String rfLiquidos, String rfVentilacion, String rfIluminacion, String riesgosQuimicos, String riesgosBiologicos, String pymEsfuerzoFisico, String pymEsfuerzoVoz, String pymEstardePie, String pymSentadoIncomodo, String pymPosicionIncomoda, String pymMovRepetitivosCuerpo, String pymMovRepetitivosBrazos, String pymMovRepetitivosPiernas, String pymTraslados, String psAtencionPublico, String psTareaOtrosTrabajadores, String psTurnosFijos, String psTurnosRotativos, String psDescansoDuranteTrabajo, String psTrabajaDomingos, String psTrabajaFeriados, String psHaySupervisor, String psTrabajoAburrido, String psSienteMalTrabajar, String psIniciativasDesempeñoTrabajo, String psParteDeLaEmpresa, String psAgotado, String psAgresivo, String psTensionado, String psSatisfecho, String psNervioso, String psContento, String psIndiferente, String psSuperioresExigenDemas, String psCompanierosAgreden, String psTareasGranResponsabilidad, String psNoReconocimientoSuperiores, String psNoReconocimientoEmpresa, String psNoReconocimientoCompanieros, boolean asReconocimientoSocial, boolean asImportanciaSocial, String asSueldoInsuficiente, String asLeeLibros, String asSinFinLucro, String asVerTelevision, String asAmadeCasa, String asPracticaDeportes, String asAltoRiesgoLaboral) {
         this.id = id;
+        this.idEmpleo = idEmpleo;
         this.rfCargaTermica = rfCargaTermica;
         this.rfHumedad = rfHumedad;
         this.rfRuidos = rfRuidos;
@@ -434,6 +435,14 @@ public class PuestosTrabajos implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public int getIdEmpleo() {
+        return idEmpleo;
+    }
+
+    public void setIdEmpleo(int idEmpleo) {
+        this.idEmpleo = idEmpleo;
     }
 
     public String getRfCargaTermica() {
@@ -868,14 +877,6 @@ public class PuestosTrabajos implements Serializable {
         this.asAltoRiesgoLaboral = asAltoRiesgoLaboral;
     }
 
-    public Empleos getIdEmpleo() {
-        return idEmpleo;
-    }
-
-    public void setIdEmpleo(Empleos idEmpleo) {
-        this.idEmpleo = idEmpleo;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -886,10 +887,10 @@ public class PuestosTrabajos implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PuestosTrabajos)) {
+        if (!(object instanceof PuestoTrabajo)) {
             return false;
         }
-        PuestosTrabajos other = (PuestosTrabajos) object;
+        PuestoTrabajo other = (PuestoTrabajo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -898,7 +899,7 @@ public class PuestosTrabajos implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.fcm.hcdl.model.PuestosTrabajos[ id=" + id + " ]";
+        return "edu.fcm.hcdl.model.PuestoTrabajo[ id=" + id + " ]";
     }
     
 }
