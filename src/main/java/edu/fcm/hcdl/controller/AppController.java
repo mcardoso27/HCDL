@@ -31,6 +31,8 @@ import edu.fcm.hcdl.service.ProvinciaService;
 import edu.fcm.hcdl.service.UserProfileService;
 import edu.fcm.hcdl.service.UserService;
 
+import edu.fcm.hcdl.model.Provincias;
+
 @Controller
 @RequestMapping("/")
 @SessionAttributes("roles")
@@ -63,7 +65,21 @@ public class AppController {
         return "provinciaList";
     }
     
+    @RequestMapping(value = "/provinciaCreate", method = RequestMethod.GET)
+        public String provinciaNew(ModelMap model) {
+        System.out.println("ENTRO A provincia CREATE");
+        List<Provincias> pl = provinciaService.findAllProvincias();
+        model.addAttribute("lst", pl);
+        return "provinciaCreate";
+    }
+        
+    @RequestMapping(value = "/provinciaCreate", method = RequestMethod.POST)
+    public String provinciaSave(ModelMap model,Provincias provincia, BindingResult result) {
+        return "hola";
+    }
     
+    
+        
     //************************************
     
     /**
@@ -75,7 +91,7 @@ public class AppController {
         List<User> users = userService.findAllUsers();
         model.addAttribute("users", users);
         model.addAttribute("loggedinuser", getPrincipal());
-        return "adminHome";
+        return "listUsers";
     }
 
     /**
