@@ -24,7 +24,7 @@
     
     <definition name="provinciaList" extends="admin-layout">
         <put-attribute name="title" value="Listado de Provincias"/>
-        <put-attribute name="body" value="/WEB-INF/views/provinciaList.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/tiles/page/admin/Provincias/provinciaList.jsp"/>
     </definition>
     
     <definition name="provinciaCreate" extends="admin-layout">
@@ -39,10 +39,13 @@
         <put-attribute name="body" value="/WEB-INF/views/userslist.jsp" />
     </definition>
    
-    <!-- Request add user form Page -> Controller Admin -->
+    <!--     Request add user form Page -> Controller Admin -->
     <definition name="addUserForm" template="/WEB-INF/views/tiles/page/admin/users/addUserForm.jsp">
     </definition>
-   
+    
+    <definition name="addProvinciaForm" template="/WEB-INF/views/tiles/page/admin/ProvinciasS/addProvinciaForm.jsp">
+    </definition>
+    
    
     <!-- Request Show Users History Page -> Controller Admin -->
     <definition name="historyUsers" extends="admin-layout">  

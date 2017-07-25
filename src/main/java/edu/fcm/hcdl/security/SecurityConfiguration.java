@@ -40,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/list")  
                 
                 .access("hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')")
-                .antMatchers("/newuser/**", "/delete-user-*","/provinciasList/**")
+                .antMatchers("/newuser/**", "/delete-user-*","/provincias/**")
                 
                 .access("hasRole('ADMIN')")
                 .antMatchers("/edit-user-*")

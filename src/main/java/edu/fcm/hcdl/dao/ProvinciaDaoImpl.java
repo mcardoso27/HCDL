@@ -21,33 +21,31 @@ public class ProvinciaDaoImpl extends AbstractDao<Integer, Provincia> implements
         Criteria criteria = createEntityCriteria().addOrder(Order.asc("nombre"));
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
         List<Provincia> pl = (List<Provincia>) criteria.list();
-        // No need to fetch userProfiles since we are not showing them on list page. Let them lazy load. 
-        // Uncomment below lines for eagerly fetching of userProfiles if you want.
-        /*
-		for(User user : users){
-			Hibernate.initialize(user.getUserProfiles());
-		}*/
         return pl;
     }
 
     @Override
-    public void createProvincia(Provincia p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void saveProvincia(Provincia p) {
+        save(p);
     }
 
     @Override
-    public void editProvincia(Provincia p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteById(int id) {
+        Provincia p = getByKey(id);
+        delete(p);
     }
 
     @Override
-    public void removeProvincia(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Provincia findProvinciaById(int id) {
+        return getByKey(id);
     }
 
     @Override
-    public Provincia getProvincia(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Provincia findProvinciaByName(String Nombre) {
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("nombre", Nombre));
+        Provincia p = (Provincia) crit.uniqueResult();
+        return p;
     }
 
 }

@@ -8,12 +8,12 @@ public interface ProvinciaDao {
     
     public List<Provincia> getAll();
     
-    public void createProvincia (Provincia p);
+    public void saveProvincia (Provincia p);
     
-    public void editProvincia (Provincia p);
+    public void deleteById (int id);
     
-    public void removeProvincia (int id);
+    public Provincia findProvinciaById (int id);
     
-    public Provincia getProvincia (int id);
+    public Provincia findProvinciaByName (String id);
     
 }

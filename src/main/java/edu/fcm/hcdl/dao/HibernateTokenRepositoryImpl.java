@@ -29,7 +29,7 @@ public class HibernateTokenRepositoryImpl extends AbstractDao<String, Persistent
 		persistentLogin.setSeries(token.getSeries());
 		persistentLogin.setToken(token.getTokenValue());
 		persistentLogin.setLast_used(token.getDate());
-		persist(persistentLogin);
+		save(persistentLogin);
 
 	}
 

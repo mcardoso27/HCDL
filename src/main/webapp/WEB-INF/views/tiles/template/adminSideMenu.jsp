@@ -16,7 +16,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="<c:url value="/provinciasList" />"><i class="fa fa-globe fa-fw" aria-hidden="true"></i> Provincias</a>
+                    <a href="<c:url value="/provincias/list" />"><i class="fa fa-globe fa-fw" aria-hidden="true"></i> Provincias</a>
                 </li>
             </ul>
         </div>

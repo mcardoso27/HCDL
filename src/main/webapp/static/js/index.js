@@ -174,13 +174,91 @@ $(document).ready(function(){
         $('#delete-user-form').append('<input type="text" name="id" value="'+$(this).data("id")+'" />');
         $('#delete-user-form').submit();
     });
+      
+})/************************MANAGE PROVINCIAS****************************/
     
-    /************************MANAGE USERS END****************************/
+    /**
+     * Show add provincia modal - Get add provincia form
+     **/
     
-//    $.validator.setDefaults({
-//            submitHandler: function() {
-//                    alert("submitted!");
-//            }
-//    });
+    $('#addProvinciaButton').on('click', function (){
+        $('#modalEx').modal({show:true })
+    });
+        
+    $('#add-provincia-button,#edit-user-button,#remove-user-button').on('click',function(){
+        //Arma el footer
+        var action = $(this).data('action');
+        var data = {};
+        var url = '';
+        var id = $(this).data('id');
+        if (!id){
+            id = -1;
+        }
+        var modalFooter = "";
+        switch(action){
+            case 'remove':
+                url = 'removeUser';
+                modalFooter = '<button type="button" class="btn btn-primary" id="removeUser" data-id="'+id+'">Delete</button>';
+            break;
+            default:
+                modalFooter = '<button type="button" class="btn btn-primary" id="addUser">Add</button>';
+                data = {id: id};
+                url = 'addProvinciaForm';
+        }
+        modalFooter += '<button type="button" class="btn btn-secondary" data-dismiss="modal" id="userModalCancel">Cancel</button>';
+        $('#addProvinciaModalFooter').html(modalFooter);
+        
+        //Arma el body y muestra el modal
+        $('#provinciaModal').modal('show');
+        if(url=='removeUser'){
+            $('#loading-image-modal').hide();
+            $('#userModalBody').html('<p> Confirm remove selected user? </p>');
+        }else{
+            $.ajax({
+                url: url,
+                method: 'GET',
+                dataType: 'html',
+                data: data
+            }).done(function(response){
+                $('#loading-image-modal').hide();
+                $('#userModalBody').html(response);
+            }).fail(function(){
+               $('#loading-image-modal').hide();
+            });
+        }
+    });
     
-})
+    $('#cancel-add-user-modal-button').on('click',function(){
+        $('#add-user-modal-body-content').empty();
+        $('#addUserModal').modal('close');
+    });
+    
+    $('body').on('click','#addUser',function(){
+        $('#userModal').find('form').validate({
+            rules: {
+                ssoId: "required",
+                firstName:"required",
+                lastName:"required",
+                password: {
+                        required: true,
+                        minlength: 5
+                }
+            },
+            messages: {
+                ssoId: "Please enter a user name",
+                firstName: "Please enter your first name",
+                lastName: "Please enter your last name",
+                password: {
+                        required: "Please enter a password",
+                        minlength: "Your password must be at least 5 characters long"
+                }
+            }
+        });
+        $('#userModal').find('form').submit();
+    })
+    
+    $('body').on('click','#removeUser',function(){
+        $('#delete-user-form').append('<input type="text" name="id" value="'+$(this).data("id")+'" />');
+        $('#delete-user-form').submit();
+    });
+      
